@@ -1,0 +1,43 @@
+html,body{
+    background-color: #e7e7e7;
+}
+body > header{
+    line-height: 80px;
+    background-color: #fff;
+    border-bottom:1px solid #ccc;
+    margin-bottom:10px;
+    padding:0 30px;
+}
+body > header >nav{
+    margin-left:auto;
+}
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+article{
+    padding:20px;
+    background-color: #fff;
+    border:1px solid #ccc;
+    box-shadow: 1px 1px 1px #333;
+    margin-bottom: 10px;
+}
+article > .title{
+    color:#333;
+}
+article > .digest{
+    color:rgba(0, 0, 0, .5)
+}
+article >.dateTime{
+    color:#888;
+}
+.otherlink{
+    display: flex;
+    justify-content: space-between;
+}
+
+.flexa{
+    display: flex;
+    align-items: center;
+}
+

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人博客</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/basic.css">
+</head>
+<body>
+    <header class="flexa">
+        <div>
+            <h1>个人博客</h1>
+        </div>
+        <nav>
+            <a href="#">主页</a>
+            <a href="">最新文章</a>
+            <a href="./course/htmlcss.html" target="_blank">html+css入门</a>
+            <a href="">标签</a>
+        </nav>
+    </header>
+    
+    
+        <div class="container">
+            <div class="articleList">
+                <h2>最新文章</h2>
+
+                <% for(var  i=0;i<data.length; i++) {%>
+                    <article>
+                        <h3 class="title"><a href="./blog/<%=data[i].filePath%>.html"><%=data[i].title%></a></h3>
+                        <p class="digest"><%=data[i].subsribe%></p>
+                        <div class="tagList"> <span>tag1</span> <span>tag2</span> </div>
+                        <div><span class="datetime"><%=data[i].dateTime%></span> <span>***read</span></div>
+                    </article>
+                <%}%>
+            </div>
+        </div>
+        <footer>
+            <a href="">jianshu</a> 
+        </footer>
+</body>
+</html>

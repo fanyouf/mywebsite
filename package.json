@@ -1,0 +1,30 @@
+{
+  "name": "mywebsite",
+  "version": "1.0.0",
+  "description": "personal website",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js",
+    "createblog": "node ./src/script/createblog.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fanyoufu/mywebsite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fanyoufu/mywebsite/issues"
+  },
+  "homepage": "https://github.com/fanyoufu/mywebsite#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "marked": "^0.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "@1.18.2"
+  }
+}
