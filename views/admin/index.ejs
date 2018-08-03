@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>博客的详细页</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/basic.css">
+</head>
+<body>
+    <div>
+        <h2>后台管理主页</h2>
+    </div>
+    <div class="container">
+        <a href="./add" target="_blank">添加</a>
+        <table>
+            <tr>
+                <th>序号</th>
+                <th>编号</th>
+                <th>标题</th>
+                <th>创建时间</th>
+                <th>操作</th>
+                <th>状态</th>
+            </tr>
+            <% for(var  i=0;i<blogs.length; i++) {%>
+                    <tr>
+                        <td><%=i+1%></td>
+                        <td><%=blogs[i].index %></td>
+                        <td><%=blogs[i].title%></td>
+                        <td><%=blogs[i].filename.substring(0,10)%></td>
+                        <td>
+                            <a href="./edit?filename=<%=blogs[i].filename%>">编辑</a>
+                            <a href="./static?filename=<%=blogs[i].filename%>">静态化</a>
+                        </td>
+                        <td>
+                            静态化
+                        </td>
+                    </tr>
+                    <%}%>
+        </table>
+    </div>
+</body>
+</html>

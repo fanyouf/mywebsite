@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>博客的详细页</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/basic.css">
+    <style>
+        .wraper{
+            margin:30px;
+        }
+        .container{
+            display: flex;
+            width: 100%;
+        }
+        #md,#html{
+            border:1px solid #ddd;
+            flex:1 1 auto;
+        }
+        #html{background-color: #fff;padding:5px;}
+        #md{
+            padding:5px;
+            margin-right:10px;
+            background-color: #111;
+            flex:0 0  400px;
+            color:#fff;
+            box-shadow: none;
+            border:none;
+            min-height: 600px;
+        }
+        code{
+            background-color: #ddd;
+            padding:5px;
+            border:1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="wraper">
+        <div>
+            <h2>编辑文章</h2>
+            <div>
+                <input id="filename" type="text" value="<%=blog.filename%>">
+                <input type="button" value="保存" id="btnSave">
+            </div>
+        </div>
+        <div>文章标题：<input id="title" name="title" value="<%=blog.title%>"></div>
+        <div>文章关键字：<input id="keywords" name="keywords" value="<%=blog.keywords%>"></div>
+        
+        <div class="container">
+            <textarea id="md" class="form-control"  placeholder="请输入Markdown代码"><%=blog.content%>
+            </textarea>
+            <div id="html"></div>
+        </div>
+    </div>
+
+    </body>
+    <script src="../../js/marked.min.js"></script>
+    <script>
+
+        function thottle(f,delay=500){
+            var t = Date.now();
+            var timer = null;
+            return function(){
+                timer = setTimeout(f,delay)
+                console.info(Date.now(),t,Date.now()-t)
+                if(Date.now() - t > delay){
+                    f();
+                    t = Date.now();
+                    clearTimeout(timer)
+                }
+            }
+        }
+
+        function mark(){
+            let str = document.getElementById("md").value;
+            document.getElementById("html").innerHTML = marked(str)
+        }
+        let f = thottle(mark)
+
+        document.getElementById("md").addEventListener("keyup",f);
+        
+        
+        document.getElementById("btnSave").addEventListener("click",function(){
+            let data ={
+                "filename":document.getElementById("filename").value,
+                "title":document.getElementById("title").value,
+                "keywords":document.getElementById("keywords").value,
+                "content":document.getElementById("md").value,
+            }
+            return fetch('./saveEdit', {
+                body: JSON.stringify(data), // must match 'Content-Type' header
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, same-origin, *omit
+                headers: {
+                'content-type': 'application/json'
+                },
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, cors, *same-origin
+                redirect: 'follow', // manual, *follow, error
+                referrer: 'no-referrer', // *client, no-referrer
+            })
+            .then(rs => rs.json()).then(data=>console.info(data))
+        })
+    </script>
+    
+</body>
+</html>

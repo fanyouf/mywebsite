@@ -8,34 +8,32 @@ const results = [];
 const create = function (filename) {
   const fileFullName = path.join(filePath, filename);
 
-
   const data = fs.readFileSync(fileFullName, 'utf8');
 
   const index = data.indexOf('#');
   const strs = data.substring(0, index);
   const article = markjs(data.substring(index));
-
-  results.push(Object.assign(JSON.parse(strs), {filePath:filename}));
+  const obj = JSON.parse(strs);
+  results.push(Object.assign(obj, {filePath:filename}));
 
   fs.readFile('./views/blog/blog.ejs', function (err, data) {
     if (err) {
       console.info(err);
     }
     const template = data.toString();
-    const html = ejs.render(template, {article});// 用dictionary数据源填充template
+    const html = ejs.render(template, {article, title:obj.title, dateTime:obj.dateTime});// 用dictionary数据源填充template
 
     fs.writeFile(`./public/blog/${filename}.html`, html, function (err) {
       if (err) {
         return console.error(err);
       }
-      console.log('数据写入成功！');
+      console.log(`./public/blog/${filename}.html 数据写入成功！`);
     });
   });
 
-
 };
 
-
+// 把src / blog下的md文件生成src / public下的html文件
 fs.readdir(filePath, function (err, files) {
   if (err) {
     console.log(err);
