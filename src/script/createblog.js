@@ -2,77 +2,54 @@ const markjs = require('marked');
 const fs = require('fs');
 const ejs = require('ejs');
 const path = require('path');
+const blogBLL = require('../bll/blog.js');
 const filePath = './src/blog/';
 const results = [];
 
-const create = function (filename) {
+const create = function (blog) {
+  const filename = blog.filename;
   const fileFullName = path.join(filePath, filename);
 
   const data = fs.readFileSync(fileFullName, 'utf8');
+  const article = markjs(data);
 
-  const index = data.indexOf('#');
-  const strs = data.substring(0, index);
-  const article = markjs(data.substring(index));
-  const obj = JSON.parse(strs);
-  results.push(Object.assign(obj, {filePath:filename}));
 
-  fs.readFile('./views/blog/blog.ejs', function (err, data) {
+  const d = {article, title:blog.title, dateTime:blog.filename.substring(0, 10)};
+  ejs.renderFile('./views/blog/blog.ejs', d, function (err, html) {
     if (err) {
       console.info(err);
     }
-    const template = data.toString();
-    const html = ejs.render(template, {article, title:obj.title, dateTime:obj.dateTime});// 用dictionary数据源填充template
-
-    fs.writeFile(`./public/blog/${filename}.html`, html, function (err) {
-      if (err) {
-        return console.error(err);
-      }
-      console.log(`./public/blog/${filename}.html 数据写入成功！`);
-    });
+    fs.writeFileSync(`./public/blog/${filename}.html`, html);
+    console.info(`./public/blog/${filename}.html --- done`);
   });
-
 };
 
-// 把src / blog下的md文件生成src / public下的html文件
-fs.readdir(filePath, function (err, files) {
-  if (err) {
-    console.log(err);
+const blogs = blogBLL.getAll();
 
-    return;
-  }
-  const count = files.length;
-  // console.log(files);
-
-  files.forEach(function (filename) {
-    const fileFullName = path.join(filePath, filename);
-    // filePath+"/"+filename不能用/直接连接，Unix系统是”/“，Windows系统是”\“
-    fs.stat(fileFullName, function (err, stats) {
-      if (err) throw err;
-      // 文件
-      if (stats.isFile()) {
-        create(filename);
-      }
-    });
-  });
-
-  fs.readFile('./views/index.ejs', function (err, data) {
-    if (err) {
-      console.info(err);
+blogs.forEach(item => {
+  const fileFullName = path.join(filePath, item.filename);
+  // filePath+"/"+filename不能用/直接连接，Unix系统是”/“，Windows系统是”\“
+  fs.stat(fileFullName, function (err, stats) {
+    if (err) throw err;
+    // 文件
+    if (stats.isFile()) {
+      create(item);
     }
-    const template = data.toString();
-    const html = ejs.render(template, {data:results});// 用dictionary数据源填充template
-
-
-    fs.writeFile('./public/index.html', html, function (err) {
-      if (err) {
-        return console.error(err);
-      }
-      console.log('数据写入成功！');
-    });
   });
 });
 
+fs.readFile('./views/index.ejs', function (err, data) {
+  if (err) {
+    console.info(err);
+  }
+  const template = data.toString();
+  const html = ejs.render(template, {data:blogs});// 用dictionary数据源填充template
 
-// 读入
 
-
+  fs.writeFile('./public/index.html', html, function (err) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log('./public/index.html 数据写入成功！');
+  });
+});

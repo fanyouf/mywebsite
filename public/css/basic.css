@@ -1,19 +1,38 @@
-html,body{
-    background-color: #e7e7e7;
-}
+
 body > header{
+    position: relative;
     line-height: 80px;
-    background-color: #fff;
-    border-bottom:1px solid #ccc;
+    background-color:rgba(255,255,255,.1);
     margin-bottom:10px;
     padding:0 30px;
 }
 body > header >nav{
     margin-left:auto;
 }
+.bg{
+    position: fixed;
+    _position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    min-width: 1000px;
+    /* z-index: -10; */
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    zoom: 1;
+    background-color: rgb(64, 64, 64);
+    background: url(../img/bg.jpg);
+
+}
 .container{
+    position: relative;
     width: 80%;
     margin: 0 auto;
+    
 }
 article{
     padding:20px;

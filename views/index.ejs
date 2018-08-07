@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/basic.css">
 </head>
 <body>
+    <div class="bg"></div>
     <header class="flexa">
         <div>
             <h1>个人博客</h1>
@@ -20,22 +21,22 @@
             <a href="">标签</a>
         </nav>
     </header>
-        <div class="container">
-            <div class="articleList">
-                <h2>最新文章</h2>
+    <div class="container">
+        <div class="articleList">
+            <h2>最新文章</h2>
 
-                <% for(var  i=0;i<data.length; i++) {%>
-                    <article>
-                        <h3 class="title"><a href="./blog/<%=data[i].filePath%>.html"><%=data[i].title%></a></h3>
-                        <p class="digest"><%=data[i].subsribe%></p>
-                        <div class="tagList"> <span>tag1</span> <span>tag2</span> </div>
-                        <div><span class="datetime"><%=data[i].dateTime%></span> <span>***read</span></div>
-                    </article>
-                <%}%>
-            </div>
+            <% for(var  i=0;i<data.length; i++) {%>
+                <article>
+                    <h3 class="title"><a target="_blank" href="./blog/<%=data[i].filename%>.html"><%=data[i].title%></a></h3>
+                    <p class="digest"><%=data[i].subsribe%></p>
+                    <div class="tagList"> <span>tag1</span> <span>tag2</span> </div>
+                    <div><span class="datetime"><%=data[i].dateTime%></span> <span>***read</span></div>
+                </article>
+            <%}%>
         </div>
-        <footer>
-            <a href="">jianshu</a> 
-        </footer>
+    </div>
+    <footer>
+        <a href="">jianshu</a> 
+    </footer>
 </body>
 </html>

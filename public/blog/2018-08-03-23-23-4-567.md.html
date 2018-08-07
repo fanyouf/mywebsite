@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>博客的详细页</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <!-- <link rel="stylesheet" href="../css/basic.css"> -->
+    <style>
+        article blockquote{background-color: #f7f7f7;}
+        article h1{
+            padding-bottom:0.5em;
+            border-bottom:  1px solid #ececec;
+        }
+        header{
+            background-color: #fff;
+            height: 5rem;
+            margin-bottom:10px;
+        }
+        footer{
+            margin: 10px auto;
+            margin-top: 10px;
+            text-align: center;
+            background-color: #fff;
+            line-height: 30px;
+            max-width: 960px;
+    
+        }
+        .header-container{
+            display: flex;
+            max-width: 960px;
+            margin: auto;
+            height: 5rem;
+        }
+        nav{
+            height: 5rem;
+            line-height: 5rem;
+        }
+
+        .blog{
+            width: 960px;
+            display: flex;
+            margin:0 20px;
+            margin:10px auto;
+            position: relative;
+        }
+        .blog article{
+            background: #fff;
+            width: 700px;
+            margin-right:20px; 
+            padding:1em;
+        }
+        .blog .catalogue{
+            width: 240px;
+            background: #fff;
+            padding:1em;
+        }
+        .blog .catalogue .title{
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #ececec;
+        }
+
+        .top-btn{
+            display: block;
+            position: fixed;
+            bottom:40px;
+            right:40px;
+            margin: 1rem 0 0;
+            padding: 0;
+            width: 3rem;
+            height: 3rem;
+            line-height: 1;
+            color: #909090;
+            background-color: #fff;
+            border: 1px solid #f1f1f1;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0,0,0,.05);
+            cursor: pointer;
+        }
+        .top-btn::after{
+            content: "";
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            position: absolute;
+            transform: translate(85%,50%);
+            border-bottom-color: #999;
+        }
+        .control{
+            position: absolute;
+            top:0;
+            left:-30px;
+        }
+        .control span{
+            display: block;
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+            background-color: #fff;
+            line-height: 24px;
+            text-align: center;
+            cursor: pointer;
+
+        }
+    </style>
+</head>
+<body>
+        <a href="#" class="top-btn"></a>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                logo
+            </div>
+            <nav>
+                <a href="../index.html">主页</a>
+            </nav>
+        </div>
+        
+    </header>
+    <div class="blog">
+        <div class="control">
+            <span title="增加字号" onclick="zoom('big')">+</span>
+            <span title="减少字号" onclick="zoom('small')">-</span>
+            <span title="本文二维码" id="erweiCode"></span>
+            <div id="qrcodecontainer" style="width:100px;height:100px;position:absolute; display: none;padding:5px;background-color: #fff;border:1px solid #ccc;">
+                <div id="qrcode">
+
+                </div>
+            </div>
+        </div>
+        
+        <article>
+            <div>
+                <h2>标题12</h2>
+                <p>2018-08-03</p>
+            </div>
+            <div class="content">
+
+                <h1 id="-">上</h1>
+
+            </div>
+        </article>
+        <div class="catalogue">
+            <div class="title">目录</div>
+            <ul>
+                <li>1 abc</li>
+                <li>
+                    <ul>
+                        <li>1.1 aa</li>
+                        <li>1.2 bb</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script>
+        $(function(){
+            $('#qrcode').qrcode({
+                text:window.location.href,
+                width:90,
+                height:90
+            });
+        })
+        $("#erweiCode").on("mouseenter",function(){
+            $("#qrcodecontainer").show()
+        }).on("mouseleave",function(){
+            $("#qrcodecontainer").hide()
+        })
+        function zoom(type="big"){
+            let $article = $("article")
+            if(!$article) return
+            let fs = parseInt($article.css("fontSize"))
+            if(type === 'big'){
+                fs += 2
+            }
+            else if(type === 'small'){
+                fs -= 2
+            }
+            $article.css("fontSize",fs+"px")
+        }
+    </script>
+    <footer>
+        <span>小额赞助</span> <span>分享</span>
+    </footer>
+</body>
+</html>

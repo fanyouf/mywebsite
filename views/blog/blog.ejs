@@ -1,23 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>博客的详细页</title>
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/basic.css">
-</head>
-<body>
-    <div>
-        <h2><%=title%></h2>
-        <p><%=dateTime%></p>
+<%- include('./header.ejs'); %>
+    <div class="blog">
+        <div class="control">
+            <span title="增加字号" onclick="zoom('big')">+</span>
+            <span title="减少字号" onclick="zoom('small')">-</span>
+            <span title="本文二维码" id="erweiCode"></span>
+            <div id="qrcodecontainer" style="width:100px;height:100px;position:absolute; display: none;padding:5px;background-color: #fff;border:1px solid #ccc;">
+                <div id="qrcode">
+
+                </div>
+            </div>
+        </div>
+        
+        <article>
+            <div>
+                <h2><%=title%></h2>
+                <p><%=dateTime%></p>
+            </div>
+            <div class="content">
+
+                <%- article%>
+            </div>
+        </article>
+        <div class="catalogue">
+            <div class="title">目录</div>
+            <ul>
+                <li>1 abc</li>
+                <li>
+                    <ul>
+                        <li>1.1 aa</li>
+                        <li>1.2 bb</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
-    <article>
-        <%- article%>
-    </article>
+    <script></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script>
+        $(function(){
+            $('#qrcode').qrcode({
+                text:window.location.href,
+                width:90,
+                height:90
+            });
+        })
+        $("#erweiCode").on("mouseenter",function(){
+            $("#qrcodecontainer").show()
+        }).on("mouseleave",function(){
+            $("#qrcodecontainer").hide()
+        })
+        function zoom(type="big"){
+            let $article = $("article")
+            if(!$article) return
+            let fs = parseInt($article.css("fontSize"))
+            if(type === 'big'){
+                fs += 2
+            }
+            else if(type === 'small'){
+                fs -= 2
+            }
+            $article.css("fontSize",fs+"px")
+        }
+    </script>
     <footer>
-        adpx
+        <span>小额赞助</span> <span>分享</span>
     </footer>
 </body>
 </html>

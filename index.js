@@ -9,8 +9,20 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 const ejs = require('ejs');
 app.set('view engine', 'ejs');
+app.set('./views', path.join(__dirname, './views'));
+
 
 const blogBLL = require('./src/bll/blog.js');
+
+app.get('/test', function (req, res) {
+  // const rs = res.render('./blog/blog.ejs', {title:'asdfsd', dateTime:'asdfsd', article:'afds', titleName:'test'});
+  const rs = ejs.render('aa<%- include("header.ejs") %>bb', {titleName:'test'});
+
+//   ejs.renderFile(filename, data, options, function(err, str){
+//     // str => 输出绘制后的 HTML 字符串
+//     res.end(rs);
+// });
+});
 
 
 app.get('/add', function (req, res) {
@@ -19,6 +31,16 @@ app.get('/add', function (req, res) {
 //  res.send('Hello World123');
 });
 
+app.get('/static', function (req, res) {
+  const filename = req.query.filename;
+  console.info(filename);
+  if (blogBLL.static(filename)) {
+    res.json({success:true});
+  }
+  else {
+    res.josn({success:false});
+  }
+});
 
 app.get('/edit', function (req, res) {
   const filename = req.query.filename;

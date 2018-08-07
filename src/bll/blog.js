@@ -1,6 +1,11 @@
 const fs = require('fs');
 const url = './src/db/blog.log';
 const mdUrl = "./src/blog/"
+const filePath = './src/blog/';
+const path = require('path')
+const markjs = require('marked')
+const ejs = require('ejs');
+
 const getAll = function () {
   const d = fs.readFileSync(url);
 
@@ -13,6 +18,21 @@ const writeLog = function (data){
         }
         console.info('保存blog.log成功');
       });
+}
+exports.static = function(filename){
+  const fileFullName = path.join(filePath, filename);
+
+  const data = fs.readFileSync(fileFullName, 'utf8');
+  const blogs = getAll();
+  const blog = blogs.find(item=>item.filename)
+  const article = markjs(data);
+  const d = {article, title:blog.title, dateTime:blog.filename.substring(0, 10)}
+  ejs.renderFile('./views/blog/blog.ejs', d, function(err, html){
+    // str => 输出绘制后的 HTML 字符串
+    fs.writeFileSync(`./public/blog/${filename}.html`, html);
+  });
+
+  return true;
 }
 exports.saveEdit = function(blog){
     // 保存新的md文件
@@ -30,7 +50,6 @@ exports.saveEdit = function(blog){
         item.keywords = blog.keywords;
     }
     try{
-
         writeLog(rs);
     }
     catch(e){
