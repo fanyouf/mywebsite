@@ -19,6 +19,8 @@
                 <th>序号</th>
                 <th>编号</th>
                 <th>标题</th>
+                <th>类别</th>
+                
                 <th>创建时间</th>
                 <th>操作</th>
                 <th>状态</th>
@@ -28,6 +30,7 @@
                     <td><%=i+1%></td>
                     <td><%=blogs[i].index %></td>
                     <td><%=blogs[i].title%></td>
+                    <td><%=blogs[i].categroy%></td>
                     <td><%=blogs[i].filename.substring(0,10)%></td>
                     <td>
                         <a href="./edit?filename=<%=blogs[i].filename%>">编辑</a>
@@ -42,9 +45,12 @@
     </div>
     <script>
         function static(filename){
-            alert(filename)
+            //alert(filename)
             fetch('./static?filename='+filename).then(res=>{
                 console.info(res)
+                if(window.confirm("是否打开预览")){
+                    window.open("../blog/"+filename+".html")
+                }
             })
         }
     </script>

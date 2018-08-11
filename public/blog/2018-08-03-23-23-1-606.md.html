@@ -1,3 +1,21 @@
+
+    <!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>博客的详细页</title>
+    <meta name=”Keywords” Content=”ejs″>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/blogpage.css">
+    <!-- <link rel="stylesheet" href="../css/basic.css"> -->
+    
+</head>
+<body>
+        <a href="#" class="top-btn"></a>
+
+ 
 <!DOCTYPE html>
 <html lang="ch">
 <head>
@@ -5,111 +23,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>博客的详细页</title>
+    <meta name=”Keywords” Content="ejs">
     <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/blogpage.css">
+    <link href="../../img/favicon.ico" rel="SHORTCUT ICON">
     <!-- <link rel="stylesheet" href="../css/basic.css"> -->
-    <style>
-        article blockquote{background-color: #f7f7f7;}
-        article h1{
-            padding-bottom:0.5em;
-            border-bottom:  1px solid #ececec;
-        }
-        header{
-            background-color: #fff;
-            height: 5rem;
-            margin-bottom:10px;
-        }
-        footer{
-            margin: 10px auto;
-            margin-top: 10px;
-            text-align: center;
-            background-color: #fff;
-            line-height: 30px;
-            max-width: 960px;
     
-        }
-        .header-container{
-            display: flex;
-            max-width: 960px;
-            margin: auto;
-            height: 5rem;
-        }
-        nav{
-            height: 5rem;
-            line-height: 5rem;
-        }
-
-        .blog{
-            width: 960px;
-            display: flex;
-            margin:0 20px;
-            margin:10px auto;
-            position: relative;
-        }
-        .blog article{
-            background: #fff;
-            width: 700px;
-            margin-right:20px; 
-            padding:1em;
-        }
-        .blog .catalogue{
-            width: 240px;
-            background: #fff;
-            padding:1em;
-        }
-        .blog .catalogue .title{
-            padding-bottom: 5px;
-            margin-bottom: 5px;
-            border-bottom: 1px solid #ececec;
-        }
-
-        .top-btn{
-            display: block;
-            position: fixed;
-            bottom:40px;
-            right:40px;
-            margin: 1rem 0 0;
-            padding: 0;
-            width: 3rem;
-            height: 3rem;
-            line-height: 1;
-            color: #909090;
-            background-color: #fff;
-            border: 1px solid #f1f1f1;
-            border-radius: 50%;
-            box-shadow: 0 0 5px rgba(0,0,0,.05);
-            cursor: pointer;
-        }
-        .top-btn::after{
-            content: "";
-            width: 0;
-            height: 0;
-            border: 6px solid transparent;
-            position: absolute;
-            transform: translate(85%,50%);
-            border-bottom-color: #999;
-        }
-        .control{
-            position: absolute;
-            top:0;
-            left:-30px;
-        }
-        .control span{
-            display: block;
-            width: 24px;
-            height: 24px;
-            margin-bottom: 5px;
-            background-color: #fff;
-            line-height: 24px;
-            text-align: center;
-            cursor: pointer;
-
-        }
-    </style>
 </head>
 <body>
         <a href="#" class="top-btn"></a>
-
     <header>
+            <div class="header-container">
+                <div class="logo">
+                    <h1>个人博客</h1>
+                </div>
+                <nav>
+                    <a href="../index.html">主页</a>
+                    <a href="#">分类</a>
+                    <a href="#">标签</a>
+                    <a href="#">课程</a>
+                    <a href="../about.html">关于</a>   
+                </nav>
+            </div>
+        </header>
+    <!-- <header>
         <div class="header-container">
             <div class="logo">
                 logo
@@ -119,12 +57,12 @@
             </nav>
         </div>
         
-    </header>
+    </header> -->
     <div class="blog">
         <div class="control">
             <span title="增加字号" onclick="zoom('big')">+</span>
             <span title="减少字号" onclick="zoom('small')">-</span>
-            <span title="本文二维码" id="erweiCode"></span>
+            <span title="本文二维码" id="erweiCode">码</span>
             <div id="qrcodecontainer" style="width:100px;height:100px;position:absolute; display: none;padding:5px;background-color: #fff;border:1px solid #ccc;">
                 <div id="qrcode">
 
@@ -138,29 +76,78 @@
                 <p>2018-08-03</p>
             </div>
             <div class="content">
-
                 <h1 id="ejs-">ejs是什么</h1>
 <p>它是一个模板引擎</p>
 
             </div>
+            <div style="margin-top:10px;border-top:1px solid #ddd;padding-top:10px;text-align:center;" >
+                版权声明：自由转载-非商用-非衍生-保持署名
+            </div>
         </article>
         <div class="catalogue">
             <div class="title">目录</div>
-            <ul>
-                <li>1 abc</li>
-                <li>
-                    <ul>
-                        <li>1.1 aa</li>
-                        <li>1.2 bb</li>
-                    </ul>
-                </li>
-            </ul>
+            <div id="catalogueContent">
+
+            </div>
         </div>
     </div>
-    <script></script>
+    <footer>
+        <!-- <span>小额赞助</span> <span>分享</span> -->
+    </footer>
+
     <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script src="https://cdn.bootcss.com/clipboard.js/2.0.1/clipboard.min.js"></script>
     <script>
+        $(()=>{
+            var h1 = 0, h2 = 0, h3 = 0, h4 = 0, h5 = 0;
+            var list = []
+            $('.content').find("h1,h2,h3").each((index,item) => {
+
+                $(item).before(`<a name='h${index+1}'></a>`)
+
+                var hIndex = item.tagName.toString().substring(1)
+                if(hIndex == 1){
+                    h1 += 1;
+                    h2 = 0;
+                    h3 = 0;
+                    h4 = 0;
+                    h5 = 0;
+                    h6 = 0;
+                }
+                else if(hIndex == 2){
+                    h2 += 1;
+                    h3 = 0;
+                    h4 = 0;
+                    h5 = 0;
+                    h6 = 0;
+                }
+                else if(hIndex == 3){
+                    h3 += 1;
+                    h4 = 0;
+                    h5 = 0;
+                    h6 = 0;
+                }
+                else if(hIndex == 4){
+                    h4 += 1;
+                    h5 = 0;
+                    h6 = 0;
+                }
+                else if(hIndex == 5){
+                    h5 += 1;
+                    h6 = 0;
+                }
+                else if(hIndex == 6){
+                    h6 += 1;
+                }
+
+                var idx = h1 + (h2 == 0 ? '' : '.'+h2) + (h3 == 0 ? '' : '.'+h3) + (h4 == 0 ? '' : '.'+h4) + (h5 == 0 ? '' : '.'+h5) + (h6 == 0 ? '' : '.'+h6)
+                var pre = "&nbsp;".repeat(hIndex-1)
+                var html = idx+' '+$(item).html()
+                var tt = `<div>${pre}<a href="#h${index+1}">${html}</a></div>`;
+                $("#catalogueContent").append(tt)
+            })
+        })
         $(function(){
             $('#qrcode').qrcode({
                 text:window.location.href,
@@ -168,11 +155,29 @@
                 height:90
             });
         })
+
+        $(()=>{
+            $("code").after("<div class='codecopy'>copy</div>");
+            var clipboard = new ClipboardJS('.codecopy', {
+                text: function(e) {
+                    console.info(e,this)
+                    return $(e).prev().html()
+                }
+            });
+            clipboard.on('success', function(e) {
+                alert("复制成功");
+            });
+            
+            clipboard.on('error', function(e) {
+                console.log(e);
+            });
+        })
         $("#erweiCode").on("mouseenter",function(){
             $("#qrcodecontainer").show()
         }).on("mouseleave",function(){
             $("#qrcodecontainer").hide()
         })
+
         function zoom(type="big"){
             let $article = $("article")
             if(!$article) return
@@ -186,8 +191,6 @@
             $article.css("fontSize",fs+"px")
         }
     </script>
-    <footer>
-        <span>小额赞助</span> <span>分享</span>
-    </footer>
+    
 </body>
 </html>

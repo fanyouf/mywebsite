@@ -42,13 +42,21 @@
         <div>
             <h2>编辑文章</h2>
             <div>
-                <input id="filename" type="text" value="<%=blog.filename%>">
+                <input id="filename" type="hidden" value="<%=blog.filename%>">
+                <input type="hidden" value="<%=blog.categroy%>" id="hideCategroy">
                 <input type="button" value="保存" id="btnSave">
             </div>
         </div>
         <div>文章标题：<input id="title" name="title" value="<%=blog.title%>"></div>
         <div>文章关键字：<input id="keywords" name="keywords" value="<%=blog.keywords%>"></div>
         
+        <div>分类:
+                <input type="radio" name="categroy" value="js" />js
+                <input type="radio" name="categroy" value="css" />css
+                <input type="radio" name="categroy" value="html" />html
+                <input type="radio" name="categroy" value="vue" />vue
+                <input type="radio" name="categroy" value="react" />react
+            </div>
         <div class="container">
             <textarea id="md" class="form-control"  placeholder="请输入Markdown代码"><%=blog.content%>
             </textarea>
@@ -57,9 +65,16 @@
     </div>
 
     </body>
+    <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+
     <script src="../../js/marked.min.js"></script>
     <script>
+        $(()=>{
+            let val = $("#hideCategroy").val();
+            $("input[type=radio][name=categroy][value="+val+"]").attr("checked",'checked')
 
+            mark();
+        })
         function thottle(f,delay=500){
             var t = Date.now();
             var timer = null;
@@ -88,6 +103,7 @@
                 "filename":document.getElementById("filename").value,
                 "title":document.getElementById("title").value,
                 "keywords":document.getElementById("keywords").value,
+                "categroy":$('input[name="categroy"]:checked ').val(),
                 "content":document.getElementById("md").value,
             }
             return fetch('./saveEdit', {

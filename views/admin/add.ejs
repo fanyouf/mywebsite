@@ -45,9 +45,16 @@
                 <input type="button" value="保存" id="btnSave">
             </div>
         </div>
-        <div>文章标题：<input id="title" name="title" value="标题"></div>
-        <div>文章关键字：<input id="keywords" name="keywords" value="axs 好的"></div>
-        
+        <div>文章标题：<input id="title" name="title" placeholder="请输入文章名" value=""></div>
+        <div>文章关键字：<input id="keywords" name="keywords" placeholder="请输入文章关键字" value=""></div>
+        <div>分类:
+            <input type="radio" name="categroy" value="js" />js
+            <input type="radio" name="categroy" value="css" />css
+            <input type="radio" name="categroy" value="html" />html
+
+            <input type="radio" name="categroy" value="vue" />vue
+            <input type="radio" name="categroy" value="react" />react
+        </div>
         <div class="container">
                 <textarea id="md" class="form-control"  placeholder="请输入Markdown代码"># 上</textarea>
                 <div id="html"></div>
@@ -56,6 +63,8 @@
     </div>
 
     </body>
+    <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+
     <script src="../../js/marked.min.js"></script>
     <script>
 
@@ -64,7 +73,7 @@
             var timer = null;
             return function(){
                 timer = setTimeout(f,delay)
-                console.info(Date.now(),t,Date.now()-t)
+                // console.info(Date.now(),t,Date.now()-t)
                 if(Date.now() - t > delay){
                     f();
                     t = Date.now();
@@ -87,6 +96,7 @@
                 "title":document.getElementById("title").value,
                 "keywords":document.getElementById("keywords").value,
                 "content":document.getElementById("md").value,
+                "categroy":$('input[name="categroy"]:checked ').val()
             }
             return fetch('./add', {
                 body: JSON.stringify(data), // must match 'Content-Type' header
@@ -102,6 +112,150 @@
             })
             .then(rs => rs.json()).then(data=>console.info(data))
         })
+
+
+
+
+
+//聊天内容框 插入文本或者其他元素后，移动置光标到最新处
+function insertHtmlAtCaret(childElement) {
+    var sel, range;
+    if (window.getSelection) {
+        // IE9 and non-IE
+        sel = window.getSelection();
+        if (sel.getRangeAt && sel.rangeCount) {
+            range = sel.getRangeAt(0);
+            range.deleteContents();
+
+            var el = document.createElement("div");
+            el.appendChild(childElement);
+            var frag = document.createDocumentFragment(), node, lastNode;
+            while ((node = el.firstChild)) {
+                lastNode = frag.appendChild(node);
+            }
+
+            range.insertNode(frag);
+            if (lastNode) {
+                range = range.cloneRange();
+                range.setStartAfter(lastNode);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+        }
+    }
+    else if (document.selection && document.selection.type != "Control") {
+        // IE < 9
+        //document.selection.createRange().pasteHTML(html);
+    }
+}
+
+function uploadImg(blog,fileName){
+    var data = new FormData();
+	　//　　var files = $("#idFile")[0].files;
+    data.append("file", blog);
+    data.append("fileName",fileName)
+    return fetch("./uploadImg",{
+        method:"post",
+        body:data
+    })
+}
+
+function paste_img(e) {
+
+    if (e.clipboardData && e.clipboardData.items) {
+
+        var imageContent = e.clipboardData.getData('image/png');
+        ele = e.clipboardData.items
+        for (var i = 0; i < ele.length; ++i) {
+            //粘贴图片
+            if (ele[i].kind == 'file' && ele[i].type.indexOf('image/') !== -1) {
+                var blob = ele[i].getAsFile();
+                //window.URL = window.URL || window.webkitURL;
+               // var blobUrl = window.URL.createObjectURL(blob);
+                // 显示到div中，此时是显示的本地图片数据，并没有上传到服务器
+                // var new_img = document.createElement('img');
+                // new_img.setAttribute('src', blobUrl);
+                // new_img.setAttribute('blobdata', blob);
+                
+                var filename  = Date.now()+".png"
+                uploadImg(blob,filename).then(rs => {
+                    changeSelectedText(`![filename](${document.location.origin}/blog/img/${filename})`)
+
+                });
+            }
+            //粘贴文本
+            else if (ele[i].kind === "string" && ele[i].type.indexOf('text/plain') != -1) {
+                //粘贴文本回调函数
+                ele[i].getAsString(
+                        function (str) {
+                        //insertHtmlAtCaret(document.createTextNode(str));//插入文本到光标处 并移动光标到新位置
+                })
+
+            }
+            else return;
+
+        }
+
+
+    }
+    else {
+        alert('不支持的浏览器');
+    }
+}
+
+function changeSelectedText(str) {
+    var obj = document.getElementById('md')
+
+    if (window.getSelection) {
+    // 非IE浏览器
+    console.log("非IE：")
+    obj.setRangeText(str);
+    //  在未选中文本的情况下，重新设置光标位置
+    obj.selectionStart += str.length;
+    obj.focus()
+
+    } else if (document.selection) {
+    // IE浏览器
+    console.log("IE：")
+    obj.focus();
+    var sel = document.selection.createRange();
+    sel.text = str;
+    }
+
+}
+function getSelectedText() {
+    var obj = document.getElementById('md')
+    var userSelection;
+
+    if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+        // 非IE浏览器
+        // 获取选区的开始位置
+        var startPos = obj.selectionStart,
+                // 获取选区的结束位置
+            endPos = obj.selectionEnd;
+        console.log("非IE：")
+        console.log("选区开始点：" + startPos + '，选区结束点：' + endPos)
+
+        userSelection = obj.value.substring(startPos, endPos)
+
+    } else if (document.selection) {
+        // IE浏览器
+        console.log("IE：")
+        userSelection = document.selection.createRange().text
+    }
+
+    return userSelection
+}
+
+//绑定粘贴事件
+document.getElementById('md').onpaste = function (event) {
+    
+    paste_img(event); 
+    return "false"; 
+};
+
+
     </script>
     
 </body>

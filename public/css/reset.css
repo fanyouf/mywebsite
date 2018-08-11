@@ -9,6 +9,10 @@ background-color: #f4f5f5;
 body{
     position: relative;
 }
+a{
+    color:#333;
+    text-decoration: none;
+}
 
 ul,li,h1,h2,h3{margin: 0;padding:0;list-style: none;}
 div{

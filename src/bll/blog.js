@@ -26,9 +26,13 @@ exports.static = function(filename){
   const blogs = getAll();
   const blog = blogs.find(item=>item.filename)
   const article = markjs(data);
-  const d = {article, title:blog.title, dateTime:blog.filename.substring(0, 10)}
+  const d = {article, keywords:blog.keywords,title:blog.title, dateTime:blog.filename.substring(0, 10)}
   ejs.renderFile('./views/blog/blog.ejs', d, function(err, html){
+    if(err){
+      console.info(err)
+    }
     // str => 输出绘制后的 HTML 字符串
+    console.info(html)
     fs.writeFileSync(`./public/blog/${filename}.html`, html);
   });
 
@@ -48,6 +52,7 @@ exports.saveEdit = function(blog){
     if (item) {
         item.title = blog.title;
         item.keywords = blog.keywords;
+        item.categroy = blog.categroy;
     }
     try{
         writeLog(rs);
@@ -76,42 +81,32 @@ exports.getBlog = function (filename) {
 
 exports.getAll = getAll;
 exports.add = function (params) {
-  fs.readFile(url, function (err, data) {
-    if (err) {
-      console.info(err);
-    }
-    const d = new Date();
-    let filename = [
-      d.getFullYear(),
-      d.getMonth() > 9 ? d.getMonth() + 1 : `0${d.getMonth() + 1}`, // 月份
-      d.getDate() > 10 ? d.getDate() : `0${d.getDate()}`, // 日
-      d.getHours(), // 小时
-      d.getHours(), // 小时
-      d.getMinutes(), // 分
-      d.getMilliseconds(), // 毫秒
-    ].join('-');
-    filename = `${filename}.md`;
-    const rs = JSON.parse(data.toString());
-    let index = 1;
-    if (rs.length !== 0) {
-      index = rs[rs.length - 1].index + 1;
-    }
-    rs.push({index, title:params.title, keywords:params.keywords, filename});
+  const rs = getAll();
+  const d = new Date();
+  let filename = [
+    d.getFullYear(),
+    d.getMonth() > 9 ? d.getMonth() + 1 : `0${d.getMonth() + 1}`, // 月份
+    d.getDate() > 10 ? d.getDate() : `0${d.getDate()}`, // 日
+    d.getHours() > 10 ? d.getHours() : `0${d.getHours()}`, // 小时
+    d.getMinutes() > 10 ? d.getMinutes() : `0${d.getMinutes()}`, // 分
+    d.getSeconds() > 10 ? d.getSeconds() : `0${d.getSeconds()}`,
+    d.getMilliseconds(), // 毫秒
+  ].join('-');
+  filename = `${filename}.md`;
+    
+  let index = 1;
+  if (rs.length !== 0) {
+    index = rs[rs.length - 1].index + 1;
+  }
+  rs.push({index,categroy:params.categroy,title:params.title, keywords:params.keywords, filename});
 
-    const str = JSON.stringify(rs);
-    fs.writeFile(url, str, function (err1) {
-      if (err) {
-        return console.error(err1);
-      }
-      console.log('blog添加写入blog.log成功！');
-      fs.writeFile(`./src/blog/${filename}`, params.content, function (err2) {
-        if (err) {
-          return console.error(err2);
-        }
-        console.info('保存md文件成功');
-      });
-    });
-  });
+  const str = JSON.stringify(rs);
 
+  fs.writeFileSync(url, str)
+
+  console.log('blog添加写入blog.log成功！');
+  fs.writeFileSync(`./src/blog/${filename}`, params.content)
+  console.info(`保存md文件 ./src/blog/${filename} 成功`);
+  return true;
 };
 

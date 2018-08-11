@@ -38,13 +38,7 @@ exec('git add .', options, function (error, stdout, stderr) {
   console.log(`stderr: ${typeof stderr}`);
 
   exec('git commit -a -m \'new\'', options, function (error, stdout, stderr) {
-    if (error) {
-      console.error(`error: ${error}`);
 
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    console.log(`stderr: ${typeof stderr}`);
 
     exec('git push', options, function (error, stdout, stderr) {
       if (error) {
@@ -55,6 +49,14 @@ exec('git add .', options, function (error, stdout, stderr) {
       console.log(`stdout: ${stdout}`);
       console.log(`stderr: ${typeof stderr}`);
     });
+
+    if (error) {
+      console.error(`error: ${error}`);
+
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${typeof stderr}`);
   });
 });
 

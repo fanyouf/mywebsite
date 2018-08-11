@@ -4,6 +4,15 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 // app.use(express.bodyParser());
 const path = require('path');
+
+
+const multer = require('multer');
+
+const upload = multer({
+  dest: './public/blog/img',
+});
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -13,6 +22,21 @@ app.set('./views', path.join(__dirname, './views'));
 
 
 const blogBLL = require('./src/bll/blog.js');
+
+
+app.post('/uploadImg', upload.single('file'), function (req, res, next) {
+  console.info(req.file.path, req.file.originalname, req.body);
+  fs.rename(req.file.path, `./public/blog/img/${req.body.fileName}`, function (err) {
+    if (err) {
+      throw err;
+    }
+    console.log('上传成功!');
+  });
+  res.writeHead(200, {
+    'Access-Control-Allow-Origin': '*',
+  });
+  res.end(JSON.stringify(req.file) + JSON.stringify(req.body));
+});
 
 app.get('/test', function (req, res) {
   // const rs = res.render('./blog/blog.ejs', {title:'asdfsd', dateTime:'asdfsd', article:'afds', titleName:'test'});
@@ -77,7 +101,6 @@ app.post('/add', function (req, res) {
     'content':req.body.content,
   };
   blogBLL.add(response);
-  console.log(blog);
   res.json(response);
 });
 app.post('/saveEdit', function (req, res) {

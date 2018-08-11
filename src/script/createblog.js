@@ -14,7 +14,7 @@ const create = function (blog) {
   const article = markjs(data);
 
 
-  const d = {article, title:blog.title, dateTime:blog.filename.substring(0, 10)};
+  const d = {article, ...blog};//keywords:blog.keywords, categroy:blog.categroy, title:blog.title, dateTime:blog.dateTime};
   ejs.renderFile('./views/blog/blog.ejs', d, function (err, html) {
     if (err) {
       console.info(err);
@@ -25,8 +25,13 @@ const create = function (blog) {
 };
 
 const blogs = blogBLL.getAll();
+blogs.sort(function(a,b){
+  return a.filename.substring(0,10) < b.filename.substring(0,10)
+})
 
+//  生成博文
 blogs.forEach(item => {
+  item.dateTime = item.filename.substring(0, 10);
   const fileFullName = path.join(filePath, item.filename);
   // filePath+"/"+filename不能用/直接连接，Unix系统是”/“，Windows系统是”\“
   fs.stat(fileFullName, function (err, stats) {
@@ -38,18 +43,30 @@ blogs.forEach(item => {
   });
 });
 
-fs.readFile('./views/index.ejs', function (err, data) {
+// 生成主页
+ejs.renderFile('./views/index.ejs', {data:blogs}, function (err, html) {
   if (err) {
     console.info(err);
   }
-  const template = data.toString();
-  const html = ejs.render(template, {data:blogs});// 用dictionary数据源填充template
-
 
   fs.writeFile('./public/index.html', html, function (err) {
     if (err) {
       return console.error(err);
     }
     console.log('./public/index.html 数据写入成功！');
+  });
+});
+
+// 生成 关于页
+ejs.renderFile('./views/about.ejs', {data:blogs}, function (err, html) {
+  if (err) {
+    console.info(err);
+  }
+
+  fs.writeFile('./public/about.html', html, function (err) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log('./public/about.html 数据写入成功！');
   });
 });

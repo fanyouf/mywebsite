@@ -19,6 +19,8 @@
                 <th>序号</th>
                 <th>编号</th>
                 <th>标题</th>
+                <th>类别</th>
+                
                 <th>创建时间</th>
                 <th>操作</th>
                 <th>状态</th>
@@ -28,6 +30,7 @@
                     <td>1</td>
                     <td>1</td>
                     <td>css3 动画</td>
+                    <td>css</td>
                     <td>2018-08-03</td>
                     <td>
                         <a href="./edit?filename=2018-08-03-22-22-59-479.md">编辑</a>
@@ -42,6 +45,7 @@
                     <td>2</td>
                     <td>2</td>
                     <td>ejs</td>
+                    <td>js</td>
                     <td>2018-08-03</td>
                     <td>
                         <a href="./edit?filename=2018-08-03-23-23-1-606.md">编辑</a>
@@ -55,7 +59,8 @@
                 <tr>
                     <td>3</td>
                     <td>3</td>
-                    <td>标题</td>
+                    <td>a标签的嵌套问题</td>
+                    <td>html</td>
                     <td>2018-08-03</td>
                     <td>
                         <a href="./edit?filename=2018-08-03-23-23-1-306.md">编辑</a>
@@ -70,6 +75,7 @@
                     <td>4</td>
                     <td>4</td>
                     <td>标题12</td>
+                    <td>js</td>
                     <td>2018-08-03</td>
                     <td>
                         <a href="./edit?filename=2018-08-03-23-23-2-979.md">编辑</a>
@@ -84,6 +90,7 @@
                     <td>5</td>
                     <td>5</td>
                     <td>标题12</td>
+                    <td>js</td>
                     <td>2018-08-03</td>
                     <td>
                         <a href="./edit?filename=2018-08-03-23-23-4-567.md">编辑</a>
@@ -98,6 +105,7 @@
                     <td>6</td>
                     <td>6</td>
                     <td>weisheng</td>
+                    <td>js</td>
                     <td>2018-08-03</td>
                     <td>
                         <a href="./edit?filename=2018-08-03-23-23-57-542.md">编辑</a>
@@ -108,13 +116,91 @@
                     </td>
                 </tr>
             
+                <tr>
+                    <td>7</td>
+                    <td>7</td>
+                    <td>js中的函数</td>
+                    <td></td>
+                    <td>2018-08-08</td>
+                    <td>
+                        <a href="./edit?filename=2018-08-08-13-13-39-274.md">编辑</a>
+                        <button onclick="static('2018-08-08-13-13-39-274.md')">静态化</button>
+                        <a href="./blog/2018-08-08-13-13-39-274.md.html" target="_blank">预览</a>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>8</td>
+                    <td>8</td>
+                    <td>js中的函数</td>
+                    <td></td>
+                    <td>2018-08-08</td>
+                    <td>
+                        <a href="./edit?filename=2018-08-08-13-13-39-838.md">编辑</a>
+                        <button onclick="static('2018-08-08-13-13-39-838.md')">静态化</button>
+                        <a href="./blog/2018-08-08-13-13-39-838.md.html" target="_blank">预览</a>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>9</td>
+                    <td>9</td>
+                    <td>vue生命周期及实践</td>
+                    <td>vue</td>
+                    <td>2018-08-08</td>
+                    <td>
+                        <a href="./edit?filename=2018-08-08-13-54-13-269.md">编辑</a>
+                        <button onclick="static('2018-08-08-13-54-13-269.md')">静态化</button>
+                        <a href="./blog/2018-08-08-13-54-13-269.md.html" target="_blank">预览</a>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>如何实现markdown中的粘贴图片功能</td>
+                    <td></td>
+                    <td>2018-08-11</td>
+                    <td>
+                        <a href="./edit?filename=2018-08-11-18-45-54-586.md">编辑</a>
+                        <button onclick="static('2018-08-11-18-45-54-586.md')">静态化</button>
+                        <a href="./blog/2018-08-11-18-45-54-586.md.html" target="_blank">预览</a>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>11</td>
+                    <td>11</td>
+                    <td>上传图片</td>
+                    <td></td>
+                    <td>2018-08-11</td>
+                    <td>
+                        <a href="./edit?filename=2018-08-11-18-53-09-329.md">编辑</a>
+                        <button onclick="static('2018-08-11-18-53-09-329.md')">静态化</button>
+                        <a href="./blog/2018-08-11-18-53-09-329.md.html" target="_blank">预览</a>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            
         </table>
     </div>
     <script>
         function static(filename){
-            alert(filename)
+            //alert(filename)
             fetch('./static?filename='+filename).then(res=>{
                 console.info(res)
+                if(window.confirm("是否打开预览")){
+                    window.open("../blog/"+filename+".html")
+                }
             })
         }
     </script>

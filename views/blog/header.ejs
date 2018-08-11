@@ -5,118 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>博客的详细页</title>
+    <meta name=”Keywords” Content=”<%=keywords%>″>
     <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/blogpage.css">
     <!-- <link rel="stylesheet" href="../css/basic.css"> -->
-    <style>
-        article blockquote{background-color: #f7f7f7;}
-        article h1{
-            padding-bottom:0.5em;
-            border-bottom:  1px solid #ececec;
-        }
-        header{
-            background-color: #fff;
-            height: 5rem;
-            margin-bottom:10px;
-        }
-        footer{
-            margin: 10px auto;
-            margin-top: 10px;
-            text-align: center;
-            background-color: #fff;
-            line-height: 30px;
-            max-width: 960px;
     
-        }
-        .header-container{
-            display: flex;
-            max-width: 960px;
-            margin: auto;
-            height: 5rem;
-        }
-        nav{
-            height: 5rem;
-            line-height: 5rem;
-        }
-
-        .blog{
-            width: 960px;
-            display: flex;
-            margin:0 20px;
-            margin:10px auto;
-            position: relative;
-        }
-        .blog article{
-            background: #fff;
-            width: 700px;
-            margin-right:20px; 
-            padding:1em;
-        }
-        .blog .catalogue{
-            width: 240px;
-            background: #fff;
-            padding:1em;
-        }
-        .blog .catalogue .title{
-            padding-bottom: 5px;
-            margin-bottom: 5px;
-            border-bottom: 1px solid #ececec;
-        }
-
-        .top-btn{
-            display: block;
-            position: fixed;
-            bottom:40px;
-            right:40px;
-            margin: 1rem 0 0;
-            padding: 0;
-            width: 3rem;
-            height: 3rem;
-            line-height: 1;
-            color: #909090;
-            background-color: #fff;
-            border: 1px solid #f1f1f1;
-            border-radius: 50%;
-            box-shadow: 0 0 5px rgba(0,0,0,.05);
-            cursor: pointer;
-        }
-        .top-btn::after{
-            content: "";
-            width: 0;
-            height: 0;
-            border: 6px solid transparent;
-            position: absolute;
-            transform: translate(85%,50%);
-            border-bottom-color: #999;
-        }
-        .control{
-            position: absolute;
-            top:0;
-            left:-30px;
-        }
-        .control span{
-            display: block;
-            width: 24px;
-            height: 24px;
-            margin-bottom: 5px;
-            background-color: #fff;
-            line-height: 24px;
-            text-align: center;
-            cursor: pointer;
-
-        }
-    </style>
 </head>
 <body>
         <a href="#" class="top-btn"></a>
 
+ 
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>博客的详细页</title>
+    <meta name=”Keywords” Content="<%=keywords%>">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/blogpage.css">
+    <link href="../../img/favicon.ico" rel="SHORTCUT ICON">
+    <!-- <link rel="stylesheet" href="../css/basic.css"> -->
+    
+</head>
+<body>
+        <a href="#" class="top-btn"></a>
     <header>
-        <div class="header-container">
-            <div class="logo">
-                logo
+            <div class="header-container">
+                <div class="logo">
+                    <h1>个人博客</h1>
+                </div>
+                <nav>
+                    <a href="../index.html">主页</a>
+                    <a href="#">分类</a>
+                    <a href="#">标签</a>
+                    <a href="#">课程</a>
+                    <a href="../about.html">关于</a>   
+                </nav>
             </div>
-            <nav>
-                <a href="../index.html">主页</a>
-            </nav>
-        </div>
-        
-    </header>
+        </header>
