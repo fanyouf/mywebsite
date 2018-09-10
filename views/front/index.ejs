@@ -1,0 +1,24 @@
+<%- include('header.ejs',{pageName:'index'})%>
+    <div class="container">
+        <div class="articleList">
+            <h2>最新文章</h2>
+
+            <% for(var  i=0;i<data.length; i++) {%>
+                <article>
+                    <a target="_blank" href="./blog/<%=data[i].filename%>.html">
+                    <h3 class="title">
+                        <object>
+                                <a target="_blank" href="./blog/<%=data[i].filename%>.html"><%=data[i].title%></a>
+
+                        </object>
+                    </h3>
+                    <p class="digest"><%=data[i].subsribe%></p>
+                    <div> 分类: <span><%=data[i].categroy%></span> 关键字:<span><%=data[i].keywords%></span> <span class="datetime"><%=data[i].dateTime%></span></div>
+                </a>
+                </article>
+            <%}%>
+        </div>
+    </div>
+    <%- include('./footer.ejs')%>
+</body>
+</html>

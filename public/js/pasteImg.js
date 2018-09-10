@@ -1,23 +1,3 @@
-# 背景
-
-自已造一个md编辑器，基本思路是提供一个textarea，用户在上面使用markdown语法去编写内容。然后通过marked.min.js 去把textarea中的内容转成html语法的内容。即把：
-```
- # 标题1  ----marked.js--> <h1>标题1</h1>
-```
-本文讨论如何通过 ctrl+c(复制图片)  和 ctrl+v 把图片显示出来。
-
-## 思路
-要实现如上描述的效果，ctrl+v（前提是你已经复制了图片）之后要做的事情如下：
-1. 把当前复制的图片上传到服务器上，并记录它的地址信息，如http://xxxx.com/upload/img/XXXX.png。
-2. 在textarea中，按markdown的图片语法，在当前光标处插入对应的内容。
-```
-![你的文件名](http://xxxx.com/upload/img/XXXX.png) 
-```
-
-## 代码
-以node+express搭建一个服务器。
-
-```
 
 // 上传图片的具体操作，与具体的服务器端代码有关
 const uploadImg = (blog, fileName) => {
@@ -112,40 +92,3 @@ getSelectedText = () => {
 document.getElementById('md').onpaste = function (event) {
   paste_img(event);
 };
-
-```
-
-如上代码分析如下：
-### 代码段1  依赖于服务器语言的上传图片 uploadImg
-
-### 代码段2  函数changeSelectedText
-```
-// 把textarea中选中的内容设置成指定的内容。如果当前并没有选中任何内容，相当于在光标处插入指定内容，
-const changeSelectedText = (str) => {
-  const obj = document.getElementById('md');
-
-  if (window.getSelection) {
-    // 非IE浏览器
-    console.log('非IE：');
-    obj.setRangeText(str);
-    //  在未选中文本的情况下，重新设置光标位置
-    obj.selectionStart += str.length;
-    obj.focus();
-
-  } else if (document.selection) {
-    // IE浏览器
-    console.log('IE：');
-    obj.focus();
-    const sel = document.selection.createRange();
-    sel.text = str;
-  }
-
-};
-```
-用指定的内容去替换当前富文本框中鼠标选中的部分内容。特别地，如果当前鼠标并没有选中任何内容，则相当于在当前鼠标位置插入指定的内容。
-
-
-
-
-          
-            

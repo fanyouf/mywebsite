@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>主页-分类</title>
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <style>
+        header{
+            background-color: #fff;
+            height: 60px;
+            line-height: 60px;
+            margin-bottom:10px;
+        }
+        footer{
+            margin: 10px auto;
+            margin-top: 10px;
+            text-align: center;
+            line-height: 30px;
+            max-width: 920px;
+        }
+        
+        .container{
+            width: 960px;
+            margin: 10px auto;
+            background-color: #fff;
+        
+        }
+        
+        
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div>
+            <h2>后台管理主页-查看分类</h2>
+            <div>
+                <a href="./admin">主页</a>
+                <a href="./add" target="_blank">添加</a>
+                <a href="./category" target="_blank">查看分类</a>
+                <button id="btn" value="静态化分类主页">静态化分类主页</button>
+            </div>
+        </div>
+        <div class="about">
+
+            <h2>分类</h2>
+            <ul>
+                <% for(var i = 0; i< categories.length; i++) {%>
+                <li><a href="./categoryDetail?title=<%=categories[i].title%>"><%=categories[i].title%></a>(<%=categories[i].num%>)</li>
+                <%}%>
+            </ul>
+        </div>
+    </div>
+    <script>
+        document.getElementById("btn").addEventListener("click",
+        function(){
+
+            fetch('./staticCategory').then(rs => {
+                alert(rs)
+            })
+        });
+    </script>
+</body>
+</html>

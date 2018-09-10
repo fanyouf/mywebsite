@@ -55,6 +55,18 @@ app.get('/add', function (req, res) {
 //  res.send('Hello World123');
 });
 
+
+app.get('/staticCategory', function (req, res) {
+  const filename = req.query.filename;
+  console.info(filename);
+  if (blogBLL.staticCategory()) {
+    res.json({success:true});
+  }
+  else {
+    res.json({success:false});
+  }
+});
+
 app.get('/static', function (req, res) {
   const filename = req.query.filename;
   console.info(filename);
@@ -70,6 +82,35 @@ app.get('/edit', function (req, res) {
   const filename = req.query.filename;
   const blog = blogBLL.getBlog(filename);
   res.render('./admin/edit.ejs', {blog});
+});
+
+app.get('/categoryDetail', function (req, res) {
+  const title = req.query.title;
+  console.info(req.query);
+  fs.readFile('./views/admin/categoryDetail.ejs', function (err, data) {
+    if (err) {
+      console.info(err);
+    }
+    const template = data.toString();
+    const blogs = blogBLL.getCategoryByName(title);
+    const html = ejs.render(template, {blogs});// 用dictionary数据源填充template
+    res.send(html);
+  });
+});
+
+app.get('/category', function (req, res) {
+
+
+  fs.readFile('./views/admin/categories.ejs', function (err, data) {
+    if (err) {
+      console.info(err);
+    }
+
+    const template = data.toString();
+    const categories = blogBLL.getCategory();
+    const html = ejs.render(template, {categories});// 用dictionary数据源填充template
+    res.send(html);
+  });
 });
 
 app.get('/admin', function (req, res) {

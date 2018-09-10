@@ -19,6 +19,50 @@ const writeLog = function (data){
         console.info('保存blog.log成功');
       });
 }
+exports.getCategoryByName = function(title){
+  if(title ==='other')
+    title = ''
+  const allblog = getAll();
+  return allblog.filter(item=>item.categroy == title)
+};
+exports.getCategory = function(){
+  const allblog = getAll();
+  let rs = {}
+
+  allblog.forEach(item => {
+    let c = item.categroy || 'other'
+    rs[c] = (rs[c] ? parseInt(rs[c]) : 0) + 1
+    
+  });
+  let arr = []
+  for( var k in rs){
+    arr.push({title:k,num:rs[k]})
+  }
+  return arr;
+}
+
+exports.staticCategory = function(){
+  const allblog = getAll();
+  let rs = {}
+
+  allblog.forEach(item => {
+    let c = item.categroy || 'other'
+    rs[c] = (rs[c] ? parseInt(rs[c]) : 0) + 1
+    
+  });
+  let arr = []
+  for( var k in rs){
+    arr.push({title:k,num:rs[k]})
+  }
+  ejs.renderFile('./views/front/categories.ejs',{categories:arr}, function(err, html){
+    if(err){
+      console.info(err)
+    }
+
+    fs.writeFileSync(`./public/categories.html`, html);
+  });
+
+}
 exports.static = function(filename){
   const fileFullName = path.join(filePath, filename);
 
@@ -27,7 +71,7 @@ exports.static = function(filename){
   const blog = blogs.find(item=>item.filename)
   const article = markjs(data);
   const d = {article, keywords:blog.keywords,title:blog.title, dateTime:blog.filename.substring(0, 10)}
-  ejs.renderFile('./views/blog/blog.ejs', d, function(err, html){
+  ejs.renderFile('./views/front/blog/blog.ejs', d, function(err, html){
     if(err){
       console.info(err)
     }

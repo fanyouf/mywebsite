@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>主页</title>
+    <title>主页-分类</title>
     <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/header.css">
-
-
     <style>
         header{
             background-color: #fff;
@@ -36,31 +34,32 @@
     </style>
 </head>
 <body>
-    <!-- <div class="bg"></div> -->
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <h1>个人博客</h1>
-            </div>
-            <nav>
-                <a href="./index.html">主页</a>
-                <a href="#">分类</a>
-                <a href="#">标签</a>
-                <a href="#">课程</a>
-                <a class="current" href="./about.html">关于</a>   
-            </nav>
+    <div>
+        <h2>后台管理主页</h2>
+        <div>
+                <a href="./admin">主页</a>
+                <a href="./add" target="_blank">添加</a>
+                <a href="./category" target="_blank">查看分类</a>
         </div>
-    </header>
+    </div>
     <div class="container">
         <div class="about">
 
-            <h2>关于我</h2>
+            <h2>分类</h2>
             <ul>
-                <li>教师</li>
+                
+                <li><a href="./category?title=css">css</a>(1)</li>
+                
+                <li><a href="./category?title=js">js</a>(4)</li>
+                
+                <li><a href="./category?title=html">html</a>(1)</li>
+                
+                <li><a href="./category?title=other">other</a>(4)</li>
+                
+                <li><a href="./category?title=vue">vue</a>(1)</li>
+                
             </ul>
         </div>
     </div>
-
-    <%- include('./footer.ejs')%>
 </body>
 </html>

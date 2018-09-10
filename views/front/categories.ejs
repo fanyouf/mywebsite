@@ -1,0 +1,12 @@
+<%- include('./header.ejs',{pageName:'categories'})%>
+    <div class="categories">
+
+        <h2>分类</h2>
+        <ul>
+            <% for(var i = 0; i< categories.length; i++) {%>
+            <li><a href="./categoryDetail?title=<%=categories[i].title%>"><%=categories[i].title%></a>(<%=categories[i].num%>)</li>
+            <%}%>
+        </ul>
+    </div>
+</body>
+</html>

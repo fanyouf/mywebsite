@@ -1,21 +1,5 @@
 
-    <!DOCTYPE html>
-<html lang="ch">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>博客的详细页</title>
-    <meta name=”Keywords” Content=”动画 css3″>
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/blogpage.css">
-    <!-- <link rel="stylesheet" href="../css/basic.css"> -->
     
-</head>
-<body>
-        <a href="#" class="top-btn"></a>
-
- 
 <!DOCTYPE html>
 <html lang="ch">
 <head>
@@ -23,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>博客的详细页</title>
-    <meta name=”Keywords” Content="动画 css3">
+    <meta name=”Keywords” Content="粘贴图片">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/blogpage.css">
+    <link rel="stylesheet" href="../css/markdown.css">
     <link href="../../img/favicon.ico" rel="SHORTCUT ICON">
     <!-- <link rel="stylesheet" href="../css/basic.css"> -->
     
@@ -72,22 +57,139 @@
         
         <article>
             <div>
-                <h2>css3 动画</h2>
-                <p>2018-08-03</p>
+                <h2>如何实现markdown中的粘贴图片功能</h2>
+                <p>2018-08-11</p>
             </div>
             <div class="content">
-                <h1 id="-">上</h1>
-<p>logo.png<img src="./blog/img/1533979749791.png" alt="filename"> wqvb sdfsd
-sfs
-asfsd</p>
-<p>1</p>
-<p>2</p>
-<p>3</p>
-<p>4
-fs
-asfsf</p>
-<p><img src="./blog/img/1533980167345.png" alt="filename"></p>
-<p>asfsdfsd</p>
+                <h1 id="-">背景</h1>
+<p>自已造一个md编辑器，基本思路是提供一个textarea，用户在上面使用markdown语法去编写内容。然后通过marked.min.js 去把textarea中的内容转成html语法的内容。即把：</p>
+<pre><code> # 标题1  ----marked.js--&gt; &lt;h1&gt;标题1&lt;/h1&gt;</code></pre><p>本文讨论如何通过 ctrl+c(复制图片)  和 ctrl+v 把图片显示出来。</p>
+<h2 id="-">思路</h2>
+<p>要实现如上描述的效果，ctrl+v（前提是你已经复制了图片）之后要做的事情如下：</p>
+<ol>
+<li>把当前复制的图片上传到服务器上，并记录它的地址信息，如<a href="http://xxxx.com/upload/img/XXXX.png%E3%80%82">http://xxxx.com/upload/img/XXXX.png。</a></li>
+<li>在textarea中，按markdown的图片语法，在当前光标处插入对应的内容。<pre><code>![你的文件名](http://xxxx.com/upload/img/XXXX.png) </code></pre></li>
+</ol>
+<h2 id="-">代码</h2>
+<p>以node+express搭建一个服务器。</p>
+<pre><code>
+// 上传图片的具体操作，与具体的服务器端代码有关
+const uploadImg = (blog, fileName) =&gt; {
+  const data = new FormData();
+  data.append(&#39;file&#39;, blog);
+  data.append(&#39;fileName&#39;, fileName);
+
+  return fetch(&#39;./uploadImg&#39;, {
+    method:&#39;post&#39;,
+    body:data,
+  });
+};
+
+// 把textarea中选中的内容设置成指定的内容。如果当前并没有选中任何内容，相当于在光标处插入指定内容，
+const changeSelectedText = (str) =&gt; {
+  const obj = document.getElementById(&#39;md&#39;);
+
+  if (window.getSelection) {
+    // 非IE浏览器
+    console.log(&#39;非IE：&#39;);
+    obj.setRangeText(str);
+    //  在未选中文本的情况下，重新设置光标位置
+    obj.selectionStart += str.length;
+    obj.focus();
+
+  } else if (document.selection) {
+    // IE浏览器
+    console.log(&#39;IE：&#39;);
+    obj.focus();
+    const sel = document.selection.createRange();
+    sel.text = str;
+  }
+
+};
+
+const paste_img = (e) =&gt; {
+  if (e.clipboardData &amp;&amp; e.clipboardData.items) {
+    const imageContent = e.clipboardData.getData(&#39;image/png&#39;);
+    ele = e.clipboardData.items;
+    for (let i = 0; i &lt; ele.length; ++i) {
+      // 粘贴图片
+      if (ele[i].kind === &#39;file&#39; &amp;&amp; ele[i].type.indexOf(&#39;image/&#39;) !== -1) {
+        const blob = ele[i].getAsFile();
+        const filename = `${Date.now()}.png`;
+        uploadImg(blob, filename).then(rs =&gt; {
+          changeSelectedText(`![filename](${document.location.origin}/blog/img/${filename})`);
+
+        });
+      }
+      // 粘贴文本
+      else if (ele[i].kind === &#39;string&#39; &amp;&amp; ele[i].type.indexOf(&#39;text/plain&#39;) != -1) {
+        // 粘贴文本回调函数
+        ele[i].getAsString(
+          function (str) {
+            // insertHtmlAtCaret(document.createTextNode(str));//插入文本到光标处 并移动光标到新位置
+          });
+      }
+      else return;
+    }
+  }
+  else {
+    alert(&#39;不支持的浏览器&#39;);
+  }
+};
+
+
+getSelectedText = () =&gt; {
+  const obj = document.getElementById(&#39;md&#39;);
+  let userSelection;
+
+  if (typeof obj.selectionStart === &#39;number&#39; &amp;&amp; typeof obj.selectionEnd === &#39;number&#39;) {
+    // 非IE浏览器
+    // 获取选区的开始位置
+    const startPos = obj.selectionStart,
+      // 获取选区的结束位置
+      endPos = obj.selectionEnd;
+    console.log(&#39;非IE：&#39;);
+    console.log(`选区开始点：${startPos}，选区结束点：${endPos}`);
+
+    userSelection = obj.value.substring(startPos, endPos);
+
+  } else if (document.selection) {
+    // IE浏览器
+    console.log(&#39;IE：&#39;);
+    userSelection = document.selection.createRange().text;
+  }
+
+  return userSelection;
+};
+
+// 绑定粘贴事件
+document.getElementById(&#39;md&#39;).onpaste = function (event) {
+  paste_img(event);
+};
+</code></pre><p>如上代码分析如下：</p>
+<h3 id="-1-uploadimg">代码段1  依赖于服务器语言的上传图片 uploadImg</h3>
+<h3 id="-2-changeselectedtext">代码段2  函数changeSelectedText</h3>
+<pre><code>// 把textarea中选中的内容设置成指定的内容。如果当前并没有选中任何内容，相当于在光标处插入指定内容，
+const changeSelectedText = (str) =&gt; {
+  const obj = document.getElementById(&#39;md&#39;);
+
+  if (window.getSelection) {
+    // 非IE浏览器
+    console.log(&#39;非IE：&#39;);
+    obj.setRangeText(str);
+    //  在未选中文本的情况下，重新设置光标位置
+    obj.selectionStart += str.length;
+    obj.focus();
+
+  } else if (document.selection) {
+    // IE浏览器
+    console.log(&#39;IE：&#39;);
+    obj.focus();
+    const sel = document.selection.createRange();
+    sel.text = str;
+  }
+
+};</code></pre><p>用指定的内容去替换当前富文本框中鼠标选中的部分内容。特别地，如果当前鼠标并没有选中任何内容，则相当于在当前鼠标位置插入指定的内容。</p>
 
             </div>
             <div style="margin-top:10px;border-top:1px solid #ddd;padding-top:10px;text-align:center;" >

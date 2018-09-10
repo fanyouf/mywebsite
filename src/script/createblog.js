@@ -15,7 +15,7 @@ const create = function (blog) {
 
 
   const d = {article, ...blog};//keywords:blog.keywords, categroy:blog.categroy, title:blog.title, dateTime:blog.dateTime};
-  ejs.renderFile('./views/blog/blog.ejs', d, function (err, html) {
+  ejs.renderFile('./views/front/blog/blog.ejs', d, function (err, html) {
     if (err) {
       console.info(err);
     }
@@ -44,7 +44,7 @@ blogs.forEach(item => {
 });
 
 // 生成主页
-ejs.renderFile('./views/index.ejs', {data:blogs}, function (err, html) {
+ejs.renderFile('./views/front/index.ejs', {data:blogs}, function (err, html) {
   if (err) {
     console.info(err);
   }
@@ -58,7 +58,7 @@ ejs.renderFile('./views/index.ejs', {data:blogs}, function (err, html) {
 });
 
 // 生成 关于页
-ejs.renderFile('./views/about.ejs', {data:blogs}, function (err, html) {
+ejs.renderFile('./views/front/about.ejs', {data:blogs}, function (err, html) {
   if (err) {
     console.info(err);
   }
