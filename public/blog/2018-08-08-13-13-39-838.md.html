@@ -8,30 +8,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>博客的详细页</title>
     <meta name=”Keywords” Content="js function">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/blogpage.css">
     <link rel="stylesheet" href="../css/markdown.css">
     <link href="../../img/favicon.ico" rel="SHORTCUT ICON">
     <!-- <link rel="stylesheet" href="../css/basic.css"> -->
-    
 </head>
 <body>
         <a href="#" class="top-btn"></a>
-    <header>
-            <div class="header-container">
-                <div class="logo">
-                    <h1>个人博客</h1>
-                </div>
-                <nav>
-                    <a href="../index.html">主页</a>
-                    <a href="#">分类</a>
-                    <a href="#">标签</a>
-                    <a href="#">课程</a>
-                    <a href="../about.html">关于</a>   
-                </nav>
-            </div>
-        </header>
+    <header class="flexa"> 
+        <div class="logo">
+            <h1>个人博客</h1>
+        </div>
+        <nav>
+            <a href="../index.html">主页</a>
+            <a href="../categories.html">分类</a>
+            <a href="../about.html">关于</a>   
+        </nav>
+    </header>
     <!-- <header>
         <div class="header-container">
             <div class="logo">
@@ -43,39 +37,39 @@
         </div>
         
     </header> -->
-    <div class="blog">
-        <div class="control">
-            <span title="增加字号" onclick="zoom('big')">+</span>
-            <span title="减少字号" onclick="zoom('small')">-</span>
-            <span title="本文二维码" id="erweiCode">码</span>
-            <div id="qrcodecontainer" style="width:100px;height:100px;position:absolute; display: none;padding:5px;background-color: #fff;border:1px solid #ccc;">
-                <div id="qrcode">
-
-                </div>
-            </div>
-        </div>
         
-        <article>
-            <div>
-                <h2>js中的函数</h2>
-                <p>2018-08-08</p>
-            </div>
-            <div class="content">
-                <h1 id="-">引入</h1>
+    <div class="blog row">
+        <div class="col-8 col-sm-10">
+            <article>
+                <div class="control col-sm-hidden">
+                    <span title="增加字号" onclick="zoom('big')">+</span>
+                    <span title="减少字号" onclick="zoom('small')">-</span>
+                    <span title="本文二维码" id="erweiCode">码</span>
+                    <div id="qrcodecontainer" style="width:100px;height:100px;position:absolute; display: none;padding:5px;background-color: #fff;border:1px solid #ccc;">
+                        <div id="qrcode"></div>
+                    </div>
+                </div>
+                <div>
+                    <h2>js中的函数</h2>
+                    <p>2018-08-08</p>
+                </div>
+                <div class="content c-article">
+                    <h1 id="-">引入</h1>
 <blockquote>
 <p>函数是什么？</p>
 </blockquote>
 <h1 id="-">定义函数的三种方法</h1>
 
-            </div>
-            <div style="margin-top:10px;border-top:1px solid #ddd;padding-top:10px;text-align:center;" >
-                版权声明：自由转载-非商用-非衍生-保持署名
-            </div>
-        </article>
-        <div class="catalogue">
-            <div class="title">目录</div>
-            <div id="catalogueContent">
-
+                </div>
+                <div style="margin-top:10px;border-top:1px solid #ddd;padding-top:10px;text-align:center;" >
+                    版权声明：自由转载-非商用-非衍生-保持署名
+                </div>
+            </article>
+        </div>
+        <div class="col-2 col-sm-hidden h-pr">
+            <div class="catalogue">
+                <h3 class="title">目录</h3>
+                <ul id="catalogueContent"></ul>
             </div>
         </div>
     </div>
@@ -87,6 +81,28 @@
     <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <script src="https://cdn.bootcss.com/clipboard.js/2.0.1/clipboard.min.js"></script>
     <script>
+
+        $(()=>{
+            var titleTop = $('.catalogue').offset().top;
+            var w = $(".catalogue").outerWidth();
+ 
+            $(document).on('scroll',function(){
+                if($(document).scrollTop() > titleTop){
+                    $('.catalogue').css({
+                        "position":"fixed",
+                        "top":0,
+                        "width":w+"px"
+                })
+                }else{
+                    $('.catalogue').css({
+                        "position":"absolute",
+                        "width":w+"px",
+                        "top":titleTop+"px"
+                    })
+                }
+            })
+        });
+        
         $(()=>{
             var h1 = 0, h2 = 0, h3 = 0, h4 = 0, h5 = 0;
             var list = []
@@ -132,7 +148,7 @@
                 var idx = h1 + (h2 == 0 ? '' : '.'+h2) + (h3 == 0 ? '' : '.'+h3) + (h4 == 0 ? '' : '.'+h4) + (h5 == 0 ? '' : '.'+h5) + (h6 == 0 ? '' : '.'+h6)
                 var pre = "&nbsp;".repeat(hIndex-1)
                 var html = idx+' '+$(item).html()
-                var tt = `<div>${pre}<a href="#h${index+1}">${html}</a></div>`;
+                var tt = `<li>${pre}<a href="#h${index+1}">${html}</a></li>`;
                 $("#catalogueContent").append(tt)
             })
         })

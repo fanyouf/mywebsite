@@ -48,7 +48,6 @@ app.get('/test', function (req, res) {
 // });
 });
 
-
 app.get('/add', function (req, res) {
   const rs = res.render('./admin/add.ejs', {titleName:'test'});
   console.info(rs);
@@ -99,8 +98,6 @@ app.get('/categoryDetail', function (req, res) {
 });
 
 app.get('/category', function (req, res) {
-
-
   fs.readFile('./views/admin/categories.ejs', function (err, data) {
     if (err) {
       console.info(err);

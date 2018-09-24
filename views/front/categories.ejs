@@ -1,12 +1,18 @@
-<%- include('./header.ejs',{pageName:'categories'})%>
-    <div class="categories">
-
-        <h2>分类</h2>
-        <ul>
-            <% for(var i = 0; i< categories.length; i++) {%>
-            <li><a href="./categoryDetail?title=<%=categories[i].title%>"><%=categories[i].title%></a>(<%=categories[i].num%>)</li>
-            <%}%>
-        </ul>
+<%- include('header.ejs',{pageName:'categories'})%>
+    <div class=" col-right categories">
+        <h2 class="h-pl1">分类</h2>
+        <div class="c-timeline">
+            <dl>
+                <% for(var i = 0; i< categories.length; i++) {%>
+                    <dt><%=categories[i].cateName%> [<%=categories[i].cateLinks.length%>]</dt>
+                    <% for(var j=0;j<categories[j].cateLinks.length;j++) {%>
+                    <dd>
+                        <span>[<%=(categories[i].cateDates[j])%>] </span><a href="./<%=categories[i].cateLinks[j]%>"><%=categories[i].cateTitles[j]%></a>
+                    </dd>
+                    <%}%>
+                <%}%>
+            </dl>
+        </div>
     </div>
 </body>
 </html>

@@ -1,246 +1,195 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>主页</title>
     <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/header.css">
+
+    <link rel="stylesheet" href="../css/index.css" >
+
+    <title>主页</title>
     <style>
-        header{
-            background-color: #fff;
-            height: 60px;
-            line-height: 60px;
-            margin-bottom:10px;
+        .col-left{
+            background: #3a3f51;
+            width: 270px;
+            height: 100%;
+            position: fixed;
         }
-        footer{
-            margin: 10px auto;
-            margin-top: 10px;
-            text-align: center;
-            line-height: 30px;
-            max-width: 920px;
+        nav{padding:1em;}
+        nav li{margin:1.5rem 0;}
+        .col-right{
+            position: absolute;
+            margin-left:270px;
+            right: 0;
+            left: 0;
         }
-       
-
-        .container{
-            width: 960px;
-            margin: 10px auto;
-            background-color: #fff;
-        
+        .profile{
+            padding-top:2em;
+            color:#f0f0f0;
         }
-        .container .articleList h2{
-            line-height: 40px;
-            border-bottom: 1px solid #ddd;
-            font-size: 16px;
-            font-weight: 500;
-            padding-left:20px;
-
+        .profile .head-title{
         }
-        .container .articleList article{
-            border-bottom: 1px solid #ddd;
-            padding:20px;
+        .headimg{
+            width: 144px;
+            height: 144px;
+            border-radius: 50%;
         }
-        .container .articleList article:hover{
-            background-color: rgba(0, 0, 0, .01)
+        @media screen and (max-width:768px){
+            .col-left{
+                background: #3a3f51;
+                width: 100%;
+                height: 100%;
+                position: static;
+            }
+            nav {
+                margin:auto;
+            } 
+            nav ul {display: flex;justify-content: center;}
+            nav li{margin:0 1.5rem;}
+            
+            .col-right{
+                position: static;
+                margin-left:0px;
+            }
         }
-        .container .articleList article h3{
-            font-size: 1.4rem;
-            font-weight: 600;
-            line-height: 1.2;
-            color: #2e3135;
-        }
-        .container .articleList article h3 a{
-            color: #2e3135;
-        }
-        .datetime {
-            font-size: 1rem;
-            color: #8f969c;
-            float: right;
-        }
-        .categroy{
-            background-color: #56c4e1;
-            display: inline-block;
-            margin-right: 1.2rem;
-            padding: .38rem 0;
-            min-width: 4.5rem;
-            text-align: center;
-            line-height: 1;
-            color: #fff;
-            background-color: #c69f42;
-            border-radius: 2px;
-        }
-    </style>
+        </style>
 </head>
 <body>
-    <!-- <div class="bg"></div> -->
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <h1>个人博客</h1>
+    <div class="">
+        <div class="col-left tc">
+            <div class="profile">
+                <a href="./index.html">
+                    <img class="headimg" src="./pic.jpeg" alt="">
+                </a>
+                <h1 class='head-title'>Mr.fan's blog</h1>
+                <p class="head-subtitle">得一寸有一寸的欢喜</p>
             </div>
             <nav>
-                <a class="current" href="./index.html">主页</a>
-                <a class="" href="categories.html">分类</a>
-                <a href="#">标签</a>
-                <a href="#">课程</a>
-                <a class="" href="./about.html">关于</a>   
+                <ul>
+                    <li><a class="cur"  href="./">主页</a></li>
+                    <li><a class="" href="./categories.html">归档</a></li>
+                    <li><a class="" href="./about.html">关于</a></li>
+                </ul>
             </nav>
         </div>
-    </header>
-    <div class="container">
+    <div class="col-right">
         <div class="articleList">
-            <h2>最新文章</h2>
-
             
-                <article>
-                    <a target="_blank" href="./blog/2018-08-03-23-23-57-542.md.html">
-                    <h3 class="title">
-                        <object>
-                                <a target="_blank" href="./blog/2018-08-03-23-23-57-542.md.html">weisheng</a>
-
-                        </object>
+                <div class="c-article">
+                    <h3 class="c-article_title">
+                        <span class="c-article_datetime">2018-08-03</span>
+                        <a target="_blank" href="./blog/2018-08-03-23-23-57-542.md.html">weisheng</a>
                     </h3>
-                    <p class="digest"></p>
-                    <div> 分类: <span>js</span> 关键字:<span>axs 好的223</span> <span class="datetime">2018-08-03</span></div>
-                </a>
-                </article>
+                    <p class="c-article_digest"></p>
+                    <p> 分类: <span>js</span> 关键字:<span>axs 好的223</span> </p>
+                    <p><a class="h-more" target="_blank" href="./blog/2018-08-03-23-23-57-542.md.html">阅读>></a></p>
+                </div>
             
-                <article>
-                    <a target="_blank" href="./blog/2018-08-11-18-53-09-329.md.html">
-                    <h3 class="title">
-                        <object>
-                                <a target="_blank" href="./blog/2018-08-11-18-53-09-329.md.html">上传图片</a>
-
-                        </object>
+                <div class="c-article">
+                    <h3 class="c-article_title">
+                        <span class="c-article_datetime">2018-08-11</span>
+                        <a target="_blank" href="./blog/2018-08-11-18-53-09-329.md.html">上传图片</a>
                     </h3>
-                    <p class="digest"></p>
-                    <div> 分类: <span></span> 关键字:<span>markdown</span> <span class="datetime">2018-08-11</span></div>
-                </a>
-                </article>
+                    <p class="c-article_digest"></p>
+                    <p> 分类: <span>js</span> 关键字:<span>markdown</span> </p>
+                    <p><a class="h-more" target="_blank" href="./blog/2018-08-11-18-53-09-329.md.html">阅读>></a></p>
+                </div>
             
-                <article>
-                    <a target="_blank" href="./blog/2018-08-11-18-45-54-586.md.html">
-                    <h3 class="title">
-                        <object>
-                                <a target="_blank" href="./blog/2018-08-11-18-45-54-586.md.html">如何实现markdown中的粘贴图片功能</a>
-
-                        </object>
+                <div class="c-article">
+                    <h3 class="c-article_title">
+                        <span class="c-article_datetime">2018-08-11</span>
+                        <a target="_blank" href="./blog/2018-08-11-18-45-54-586.md.html">如何实现markdown中的粘贴图片功能</a>
                     </h3>
-                    <p class="digest"></p>
-                    <div> 分类: <span>js</span> 关键字:<span>粘贴图片</span> <span class="datetime">2018-08-11</span></div>
-                </a>
-                </article>
+                    <p class="c-article_digest"></p>
+                    <p> 分类: <span>css</span> 关键字:<span>粘贴图片</span> </p>
+                    <p><a class="h-more" target="_blank" href="./blog/2018-08-11-18-45-54-586.md.html">阅读>></a></p>
+                </div>
             
-                <article>
-                    <a target="_blank" href="./blog/2018-08-08-13-13-39-274.md.html">
-                    <h3 class="title">
-                        <object>
-                                <a target="_blank" href="./blog/2018-08-08-13-13-39-274.md.html">js中的函数</a>
-
-                        </object>
+                <div class="c-article">
+                    <h3 class="c-article_title">
+                        <span class="c-article_datetime">2018-08-08</span>
+                        <a target="_blank" href="./blog/2018-08-08-13-13-39-274.md.html">js中的函数</a>
                     </h3>
-                    <p class="digest"></p>
-                    <div> 分类: <span></span> 关键字:<span>js function</span> <span class="datetime">2018-08-08</span></div>
-                </a>
-                </article>
+                    <p class="c-article_digest"></p>
+                    <p> 分类: <span>js</span> 关键字:<span>js function</span> </p>
+                    <p><a class="h-more" target="_blank" href="./blog/2018-08-08-13-13-39-274.md.html">阅读>></a></p>
+                </div>
             
-                <article>
-                    <a target="_blank" href="./blog/2018-08-08-13-13-39-838.md.html">
-                    <h3 class="title">
-                        <object>
-                                <a target="_blank" href="./blog/2018-08-08-13-13-39-838.md.html">js中的函数</a>
-
-                        </object>
+                <div class="c-article">
+                    <h3 class="c-article_title">
+                        <span class="c-article_datetime">2018-08-08</span>
+                        <a target="_blank" href="./blog/2018-08-08-13-13-39-838.md.html">js中的函数</a>
                     </h3>
-                    <p class="digest"></p>
-                    <div> 分类: <span></span> 关键字:<span>js function</span> <span class="datetime">2018-08-08</span></div>
-                </a>
-                </article>
+                    <p class="c-article_digest"></p>
+                    <p> 分类: <span>css</span> 关键字:<span>js function</span> </p>
+                    <p><a class="h-more" target="_blank" href="./blog/2018-08-08-13-13-39-838.md.html">阅读>></a></p>
+                </div>
             
-                <article>
-                    <a target="_blank" href="./blog/2018-08-08-13-54-13-269.md.html">
-                    <h3 class="title">
-                        <object>
-                                <a target="_blank" href="./blog/2018-08-08-13-54-13-269.md.html">vue生命周期及实践</a>
-
-                        </object>
+                <div class="c-article">
+                    <h3 class="c-article_title">
+                        <span class="c-article_datetime">2018-08-08</span>
+                        <a target="_blank" href="./blog/2018-08-08-13-54-13-269.md.html">vue生命周期及实践</a>
                     </h3>
-                    <p class="digest"></p>
-                    <div> 分类: <span>vue</span> 关键字:<span></span> <span class="datetime">2018-08-08</span></div>
-                </a>
-                </article>
+                    <p class="c-article_digest"></p>
+                    <p> 分类: <span>vue</span> 关键字:<span></span> </p>
+                    <p><a class="h-more" target="_blank" href="./blog/2018-08-08-13-54-13-269.md.html">阅读>></a></p>
+                </div>
             
-                <article>
-                    <a target="_blank" href="./blog/2018-08-03-23-23-2-979.md.html">
-                    <h3 class="title">
-                        <object>
-                                <a target="_blank" href="./blog/2018-08-03-23-23-2-979.md.html">标题12</a>
-
-                        </object>
+                <div class="c-article">
+                    <h3 class="c-article_title">
+                        <span class="c-article_datetime">2018-08-03</span>
+                        <a target="_blank" href="./blog/2018-08-03-23-23-2-979.md.html">标题12</a>
                     </h3>
-                    <p class="digest"></p>
-                    <div> 分类: <span>js</span> 关键字:<span>axs 好的11</span> <span class="datetime">2018-08-03</span></div>
-                </a>
-                </article>
+                    <p class="c-article_digest"></p>
+                    <p> 分类: <span>js</span> 关键字:<span>axs 好的11</span> </p>
+                    <p><a class="h-more" target="_blank" href="./blog/2018-08-03-23-23-2-979.md.html">阅读>></a></p>
+                </div>
             
-                <article>
-                    <a target="_blank" href="./blog/2018-08-03-23-23-4-567.md.html">
-                    <h3 class="title">
-                        <object>
-                                <a target="_blank" href="./blog/2018-08-03-23-23-4-567.md.html">标题12</a>
-
-                        </object>
+                <div class="c-article">
+                    <h3 class="c-article_title">
+                        <span class="c-article_datetime">2018-08-03</span>
+                        <a target="_blank" href="./blog/2018-08-03-23-23-4-567.md.html">标题12</a>
                     </h3>
-                    <p class="digest"></p>
-                    <div> 分类: <span>js</span> 关键字:<span>axs 好的11</span> <span class="datetime">2018-08-03</span></div>
-                </a>
-                </article>
+                    <p class="c-article_digest"></p>
+                    <p> 分类: <span>js</span> 关键字:<span>axs 好的11</span> </p>
+                    <p><a class="h-more" target="_blank" href="./blog/2018-08-03-23-23-4-567.md.html">阅读>></a></p>
+                </div>
             
-                <article>
-                    <a target="_blank" href="./blog/2018-08-03-23-23-1-606.md.html">
-                    <h3 class="title">
-                        <object>
-                                <a target="_blank" href="./blog/2018-08-03-23-23-1-606.md.html">ejs</a>
-
-                        </object>
+                <div class="c-article">
+                    <h3 class="c-article_title">
+                        <span class="c-article_datetime">2018-08-03</span>
+                        <a target="_blank" href="./blog/2018-08-03-23-23-1-606.md.html">ejs</a>
                     </h3>
-                    <p class="digest"></p>
-                    <div> 分类: <span>js</span> 关键字:<span>ejs</span> <span class="datetime">2018-08-03</span></div>
-                </a>
-                </article>
+                    <p class="c-article_digest"></p>
+                    <p> 分类: <span>js</span> 关键字:<span>ejs</span> </p>
+                    <p><a class="h-more" target="_blank" href="./blog/2018-08-03-23-23-1-606.md.html">阅读>></a></p>
+                </div>
             
-                <article>
-                    <a target="_blank" href="./blog/2018-08-03-23-23-1-306.md.html">
-                    <h3 class="title">
-                        <object>
-                                <a target="_blank" href="./blog/2018-08-03-23-23-1-306.md.html">a标签的嵌套问题</a>
-
-                        </object>
+                <div class="c-article">
+                    <h3 class="c-article_title">
+                        <span class="c-article_datetime">2018-08-03</span>
+                        <a target="_blank" href="./blog/2018-08-03-23-23-1-306.md.html">a标签的嵌套问题</a>
                     </h3>
-                    <p class="digest"></p>
-                    <div> 分类: <span>html</span> 关键字:<span>a标签 嵌套</span> <span class="datetime">2018-08-03</span></div>
-                </a>
-                </article>
+                    <p class="c-article_digest"></p>
+                    <p> 分类: <span>html</span> 关键字:<span>a标签 嵌套</span> </p>
+                    <p><a class="h-more" target="_blank" href="./blog/2018-08-03-23-23-1-306.md.html">阅读>></a></p>
+                </div>
             
-                <article>
-                    <a target="_blank" href="./blog/2018-08-03-22-22-59-479.md.html">
-                    <h3 class="title">
-                        <object>
-                                <a target="_blank" href="./blog/2018-08-03-22-22-59-479.md.html">css3 动画</a>
-
-                        </object>
+                <div class="c-article">
+                    <h3 class="c-article_title">
+                        <span class="c-article_datetime">2018-08-03</span>
+                        <a target="_blank" href="./blog/2018-08-03-22-22-59-479.md.html">css3 动画</a>
                     </h3>
-                    <p class="digest"></p>
-                    <div> 分类: <span>css</span> 关键字:<span>动画 css3</span> <span class="datetime">2018-08-03</span></div>
-                </a>
-                </article>
+                    <p class="c-article_digest"></p>
+                    <p> 分类: <span>css</span> 关键字:<span>动画 css3</span> </p>
+                    <p><a class="h-more" target="_blank" href="./blog/2018-08-03-22-22-59-479.md.html">阅读>></a></p>
+                </div>
             
         </div>
-    </div>
-    <footer>
+        <footer class="c-footer">
     <div>ICP备18044582</div>
 </footer>
+    </div>
 </body>
 </html>

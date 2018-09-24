@@ -14,7 +14,7 @@ const create = function (blog) {
   const article = markjs(data);
 
 
-  const d = {article, ...blog};//keywords:blog.keywords, categroy:blog.categroy, title:blog.title, dateTime:blog.dateTime};
+  const d = {article, ...blog,pageName:'none'};//keywords:blog.keywords, categroy:blog.categroy, title:blog.title, dateTime:blog.dateTime};
   ejs.renderFile('./views/front/blog/blog.ejs', d, function (err, html) {
     if (err) {
       console.info(err);
@@ -27,6 +27,23 @@ const create = function (blog) {
 const blogs = blogBLL.getAll();
 blogs.sort(function(a,b){
   return a.filename.substring(0,10) < b.filename.substring(0,10)
+})
+
+// 统计分类数据
+const categories = [];
+blogs.forEach(item => {
+  let obj = categories.find(it => {
+    return it.cateName == item.categroy;
+  })
+  let date = item.filename ? item.filename.substr(0,10) : ""
+  if(obj){
+    obj.cateLinks.push(item.filename+".html");
+    obj.cateTitles.push(item.title);
+    obj.cateDates.push(date)
+  }
+  else{
+    categories.push({cateName:item.categroy,cateTitles:[item.title],cateLinks:[item.filename],cateDates:[date]})
+  }
 })
 
 //  生成博文
@@ -44,7 +61,7 @@ blogs.forEach(item => {
 });
 
 // 生成主页
-ejs.renderFile('./views/front/index.ejs', {data:blogs}, function (err, html) {
+ejs.renderFile('./views/front/index.ejs', {data:blogs,title:'主页'}, function (err, html) {
   if (err) {
     console.info(err);
   }
@@ -56,6 +73,24 @@ ejs.renderFile('./views/front/index.ejs', {data:blogs}, function (err, html) {
     console.log('./public/index.html 数据写入成功！');
   });
 });
+
+// 生成分类页
+ejs.renderFile('./views/front/categories.ejs', {categories:categories,title:'分类'}, function (err, html) {
+  console.info(blogs);
+
+  console.info(categories)
+  if (err) {
+    console.info(err);
+  }
+
+  fs.writeFile('./public/categories.html', html, function (err) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log('./public/categories.html 数据写入成功！');
+  });
+});
+
 
 // 生成 关于页
 ejs.renderFile('./views/front/about.ejs', {data:blogs}, function (err, html) {

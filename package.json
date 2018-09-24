@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon ./index.js",
     "create": "node ./src/script/createblog.js",
+    "updateabout": "node ./src/script/_updateabout.js",
     "update": "node ./src/script/updategithub.js",
     "git": "node ./src/script/git.js",
     "test": "echo \"Error: no test specified\" && exit 1"
