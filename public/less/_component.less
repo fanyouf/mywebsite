@@ -1,0 +1,146 @@
+/**
+导航条：多级嵌套效果。目前最多支持两级。
+*/
+
+// <nav class="c-nav">
+// <ul>
+// <li class="nav_item">a</li>
+// <li class="nav_item">b</li>
+// <li class="nav_item sub_item_container">中
+// <ul class="sub_item_list">
+//   <li class="nav_item">c1</li>
+//   <li class="nav_item sub_item_container">c22
+//     <ul class="sub_item_list">
+//       <li class="nav_item">c221</li>
+//       <li class="nav_item">c2223</li>
+//     </ul>
+//   </li>
+//   <li class="nav_item">c3</li>
+// </ul>
+// </li>
+// </ul>
+// </nav>
+.c-nav{
+    & > ul{display:flex;}
+    .nav_item{
+      padding:0.5em 1em;
+      // margin:0.5em 0.5em;
+      curor:pointer;
+      color:#30a;
+      // background-color:#47aafe;
+      border-radius:.1em;
+      &:hover{
+        background-color:rgba(0,0,0,.5);
+      }
+      position:relative;
+    }
+    .sub_item_container{
+      padding-right:1.75em;
+      position:relative;
+      &:after{
+        content:"";
+        width:0;height:0;
+        border:0.4em solid transparent;
+        border-top-color:inherit;
+        position:absolute;
+        top:1em;
+        right:0.4em;
+      }
+      .sub_item_container:after{
+        border:0.4em solid transparent;
+        border-left-color:inherit;
+      }
+      .sub_item_list{
+        display:none;
+        position:absolute;
+        z-index:100;
+        left:0em;
+        top:2.5em;
+        flex-direction:column;
+        
+        .sub_item_list{
+          color:red;
+          right:0;
+          top:0em;
+          transform:translateX(100%);
+          flex-direction:row;
+        }
+      }
+      &:hover > .sub_item_list{
+        display:flex;
+      }
+    }
+  }
+
+.c-timeline{
+    padding: 1rem;
+    dt,dl,dd{margin:0;padding:0}
+
+    dt{
+       margin:1.5rem 0;
+       font-size: 1.2rem;
+    }
+    dd{
+        line-height: 1.8;
+        word-wrap: break-word;
+        a{
+            color:#2479cc;
+        }
+        span{
+            font-size: 0.8rem;
+        }
+    }
+}
+.c-footer{
+    width: 98%;
+    margin:auto;
+    border-top:1px solid #ccc;
+    text-align:center;
+    line-height: 3rem;
+
+}
+.c-article{
+    padding:1rem 0;
+    li{
+        list-style: square;
+    }
+    .c-article_datetime{
+        float: right;
+        margin-right: 1rem;
+        color:#ccc;//lighten(#ccc,20%);
+        font-size: 0.8rem;
+        font-weight: normal;
+
+    }
+    .c-article_title a{color:#58666e;&:hover{color:#2479cc}};
+    .c-article_digest{
+        line-height: 1.8;
+    }
+
+}
+.c-markdown {
+    blockquote{background-color: #f7f7f7;}
+    h1{
+        padding-bottom:0.5em;
+        border-bottom:  1px solid #ececec;
+    }
+  
+    code{
+        display: block;
+        background-color: #333;
+        padding:5px;
+        color:#fff;
+        position: relative;
+    }
+    pre{position: relative;}
+    pre .codecopy{
+        position: absolute;
+        color:#fff;
+        padding:2px;
+        cursor: pointer;
+        top:3px;
+        right:3px;
+
+    }
+
+}

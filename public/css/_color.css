@@ -1,0 +1,7 @@
+a {
+  color: #efefef;
+  text-decoration: none;
+}
+a.cur {
+  color: #2479cc;
+}

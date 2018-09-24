@@ -1,0 +1,52 @@
+.tc{
+    text-align: center;
+}
+a.h-more{
+    font-size: .8rem;
+    color:#58666e;
+    text-decoration: none;
+    &:hover{
+        color:#2479cc;
+        text-decoration: underline;
+    }
+}
+.pr{
+    position: relative;
+}
+.flexa{
+    display: flex;
+    align-items: center;
+}
+.h-p1{
+    padding: 1rem;
+}
+.h-pl1{
+    padding-left: 1rem;
+}
+
+/**
+    书本效果的阴影：
+    下边有中部突出的高光，而两侧有阴影。
+*/
+.h-bookshadow{
+    position:relative;
+    background-color:#fff;
+    border:1px solid rgba(0,0,0,.1);
+    border-bottom: none;
+  }
+.h-bookshadow:after,.h-bookshadow:before{
+    content:"";
+    width:50%;
+    height:3px;
+    background-color:transparent;
+    position:absolute;
+    bottom:3px;
+    right:0px;
+    box-shadow:0px 4px 5px rgba(0,0,0,0.5);
+    transform:skew(10deg, 2deg);
+    z-index:-1;
+}
+.h-bookshadow:before{
+    left:0px;
+    transform:skew(-10deg, -2deg);
+}

@@ -1,0 +1,31 @@
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.col {
+  padding: .5rem;
+}
+.col-1 {
+  width: 10%;
+  padding: .5rem;
+}
+.col-offset-1 {
+  margin-left: 10%;
+}
+.col-2 {
+  width: 20%;
+  padding: .5rem;
+}
+.col-8 {
+  width: 80%;
+  padding: .5rem;
+}
+@media screen and (max-width: 768px) {
+  .col-sm-hidden {
+    display: none;
+  }
+  .col-sm-10 {
+    width: 100%;
+    padding: .5rem;
+  }
+}
