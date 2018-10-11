@@ -1,2 +1,29 @@
 # mywebsite
 personal website
+
+ftp-sync.json
+
+{
+    "remotePath": "./htdocs/",
+    "host": "182.92.78.68",
+    "username": "byu3151120001",
+    "password": "fanyf123.",
+    "port": 21,
+    "secure": false,
+    "protocol": "ftp",
+    "uploadOnSave": false,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store"
+    ],
+    "generatedFiles": {
+        "uploadOnSave": false,
+        "extensionsToInclude": [],
+        "path": ""
+    }
+}
