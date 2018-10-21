@@ -62,6 +62,8 @@ body {
 }
 .blog article blockquote {
   background-color: #f7f7f7;
+  margin: 0;
+  padding: 0.5em;
 }
 .blog article h1 {
   padding-bottom: 0.5em;

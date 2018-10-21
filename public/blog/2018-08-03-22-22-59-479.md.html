@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>css3 动画</title>
-    <meta name=”Keywords” Content="动画 css3">
+    <title>css3 background</title>
+    <meta name=”Keywords” Content="background">
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/blogpage.css">
     <link rel="stylesheet" href="../css/markdown.css">
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div>
-                    <h2>css3 动画</h2>
+                    <h2>css3 background</h2>
                     <p>2018-08-03</p>
                 </div>
                 <div class="content c-article">
@@ -58,9 +58,27 @@
 <p>背景</p>
 </blockquote>
 <h1 id="-">元素</h1>
+<p>特点</p>
+<ol>
+<li>渐变颜色</li>
+<li>可以叠加</li>
+</ol>
+<p>格式：
+background: 背景1，.... ，背景n; </p>
 <p>元素1</p>
-<pre><code> var a = 1;
- console.info(a)</code></pre><h2 id="-1">元素1</h2>
+<pre><code> div{
+  border:2px solid #ccc;
+  background: 
+    linear-gradient(90deg, #F00,#F00) 0% 0% no-repeat,
+    linear-gradient(0deg, #F00,#F00) 0% 0% no-repeat,
+    linear-gradient(90deg, #F00,#F00) 0% 100% no-repeat,
+    linear-gradient(0deg, #F00,#F00) 100% 0% no-repeat,
+    linear-gradient(90deg, #F00,#F00) 100% 0% no-repeat,
+    linear-gradient(0deg, #F00,#F00) 100% 100% no-repeat,
+    linear-gradient(90deg, #F00,#F00) 100% 100% no-repeat,
+    linear-gradient(0deg, #F00,#F00) 0% 100% no-repeat;
+  background-size:8px 20px,20px 8px;
+}</code></pre><h2 id="-1">元素1</h2>
 <p>明月几时有</p>
 <pre><code>function(){
    ok()

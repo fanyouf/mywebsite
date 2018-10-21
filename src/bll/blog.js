@@ -129,11 +129,11 @@ exports.add = function (params) {
   const d = new Date();
   let filename = [
     d.getFullYear(),
-    d.getMonth() > 9 ? d.getMonth() + 1 : `0${d.getMonth() + 1}`, // 月份
+    d.getMonth() >= 9 ? d.getMonth() + 1 : `0${d.getMonth() + 1}`, // 月份
     d.getDate() > 10 ? d.getDate() : `0${d.getDate()}`, // 日
-    d.getHours() > 10 ? d.getHours() : `0${d.getHours()}`, // 小时
-    d.getMinutes() > 10 ? d.getMinutes() : `0${d.getMinutes()}`, // 分
-    d.getSeconds() > 10 ? d.getSeconds() : `0${d.getSeconds()}`,
+    d.getHours() >10 ? d.getHours() : `0${d.getHours()}`, // 小时
+    d.getMinutes() >= 10 ? d.getMinutes() : `0${d.getMinutes()}`, // 分
+    d.getSeconds() >= 10 ? d.getSeconds() : `0${d.getSeconds()}`,
     d.getMilliseconds(), // 毫秒
   ].join('-');
   filename = `${filename}.md`;

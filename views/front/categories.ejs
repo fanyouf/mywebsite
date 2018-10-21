@@ -3,11 +3,12 @@
         <h2 class="h-pl1">分类</h2>
         <div class="c-timeline">
             <dl>
-                <% for(var i = 0; i< categories.length; i++) {%>
-                    <dt><%=categories[i].cateName%> [<%=categories[i].cateLinks.length%>]</dt>
-                    <% for(var j=0;j<categories[j].cateLinks.length;j++) {%>
+                <% for(var i = 0; i< categoryNameList.length; i++) {%>
+                    <dt><%=categoryNameList[i]%> [<%=categoryDataList[i].length%>]</dt>
+                    <% for(var j=0;j<categoryDataList[i].length;j++) {%>
                     <dd>
-                        <span>[<%=(categories[i].cateDates[j])%>] </span><a href="./<%=categories[i].cateLinks[j]%>"><%=categories[i].cateTitles[j]%></a>
+                        <span>[<%=(categoryDataList[i][j].filename.substr(0,10))%>] </span>
+                        <a href="./blog/<%=categoryDataList[i][j].filename%>.html"><%=categoryDataList[i][j].title%></a>
                     </dd>
                     <%}%>
                 <%}%>

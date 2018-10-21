@@ -1,1 +1,90 @@
-undefined
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="../css/index.css" >
+
+    <title>关于Mr.fan</title>
+    <style>
+        .col-left{
+            background: #3a3f51;
+            width: 270px;
+            height: 100%;
+            position: fixed;
+        }
+        nav{padding:1em;}
+        nav li{margin:1.5rem 0;}
+        .col-right{
+            position: absolute;
+            margin-left:270px;
+            right: 0;
+            left: 0;
+        }
+        .profile{
+            padding-top:2em;
+            color:#f0f0f0;
+        }
+        .profile .head-title{
+        }
+        .headimg{
+            width: 144px;
+            height: 144px;
+            border-radius: 50%;
+        }
+        @media screen and (max-width:768px){
+            .col-left{
+                background: #3a3f51;
+                width: 100%;
+                height: 100%;
+                position: static;
+            }
+            nav {
+                margin:auto;
+            } 
+            nav ul {display: flex;justify-content: center;}
+            nav li{margin:0 1.5rem;}
+            
+            .col-right{
+                position: static;
+                margin-left:0px;
+            }
+        }
+        </style>
+</head>
+<body>
+    <div class="">
+        <div class="col-left tc">
+            <div class="profile">
+                <a href="./index.html">
+                    <img class="headimg" src="./pic.jpeg" alt="">
+                </a>
+                <h1 class='head-title'>Mr.fan's blog</h1>
+                <p class="head-subtitle">得一寸有一寸的欢喜</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a class=""  href="./">主页</a></li>
+                    <li><a class="" href="./categories.html">归档</a></li>
+                    <li><a class="cur" href="./about.html">关于</a></li>
+                </ul>
+            </nav>
+        </div>
+    <div class=" col-right">
+        <div class="h-p1">
+            <h2>关于我</h2>
+            <ul>
+                <li>职业生涯第一阶段：高校软件技术专业讲师，教学管理者，培训学校讲师。</li>
+                <li>职业生涯第二阶段：JD前端工程师。</li>
+            </ul>
+        </div>
+        <footer class="c-footer">
+    <div>ICP备18044582</div>
+</footer>
+    </div>
+
+</body>
+</html>

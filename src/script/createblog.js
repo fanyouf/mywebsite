@@ -29,22 +29,30 @@ blogs.sort(function(a,b){
   return a.filename.substring(0,10) < b.filename.substring(0,10)
 })
 
+
+const categoryNameList = Array.from( new Set(blogs.map(item=>item.categroy)) )
+console.info(categoryNameList)
 // 统计分类数据
-const categories = [];
-blogs.forEach(item => {
-  let obj = categories.find(it => {
-    return it.cateName == item.categroy;
-  })
-  let date = item.filename ? item.filename.substr(0,10) : ""
-  if(obj){
-    obj.cateLinks.push(item.filename+".html");
-    obj.cateTitles.push(item.title);
-    obj.cateDates.push(date)
-  }
-  else{
-    categories.push({cateName:item.categroy,cateTitles:[item.title],cateLinks:[item.filename],cateDates:[date]})
-  }
-})
+const categoryDataList = categoryNameList.map(item=>{
+
+  return blogs.filter(it => it.categroy == item)
+});
+
+console.info(categoryDataList)
+// blogs.forEach(item => {
+//   let obj = categories.find(it => {
+//     return it.cateName == item.categroy;
+//   })
+//   let date = item.filename ? item.filename.substr(0,10) : ""
+//   if(obj){
+//     obj.cateLinks.push(item.filename+".html");
+//     obj.cateTitles.push(item.title);
+//     obj.cateDates.push(date)
+//   }
+//   else{
+//     categories.push({cateName:item.categroy,cateTitles:[item.title],cateLinks:[item.filename],cateDates:[date]})
+//   }
+// })
 
 //  生成博文
 blogs.forEach(item => {
@@ -75,10 +83,8 @@ ejs.renderFile('./views/front/index.ejs', {data:blogs,title:'主页'}, function 
 });
 
 // 生成分类页
-ejs.renderFile('./views/front/categories.ejs', {categories:categories,title:'分类'}, function (err, html) {
-  console.info(blogs);
-
-  console.info(categories)
+ejs.renderFile('./views/front/categories.ejs', {categoryNameList,categoryDataList,title:'分类'}, function (err, html) {
+  
   if (err) {
     console.info(err);
   }
@@ -93,7 +99,7 @@ ejs.renderFile('./views/front/categories.ejs', {categories:categories,title:'分
 
 
 // 生成 关于页
-ejs.renderFile('./views/front/about.ejs', {data:blogs}, function (err, html) {
+ejs.renderFile('./views/front/about.ejs', {data:blogs,title:'关于Mr.fan'}, function (err, html) {
   if (err) {
     console.info(err);
   }
